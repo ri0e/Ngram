@@ -100,12 +100,11 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
     
     if choose:
         choice = random.choices(population = words, weights = probabilities, k = 1)[0]
-    #else:
-    #    choice = [x for x,_ in sorted(zip(words, probabilities), key = lambda x[2])]
-
-    print(choice)
+    else:
+        choice = [x for x,_ in sorted(list(zip(words, probabilities)), key = lambda x: x[1])][::-1]
+        
     return choice
     
 with open ('N-gram.json','r') as N:
     ngram = json.load(N)
-predict_next_word(ngram, 'dude walks up and blots out the sun', False)
+predict_next_word(ngram, 'But what is', False)
