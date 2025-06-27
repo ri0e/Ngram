@@ -1,32 +1,80 @@
 import json
 
-punctuation_remover = str.maketrans("","",'''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''')
+def cleanup(text: str, remove_punctuation: bool = True, lowercase: bool = True, punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''') -> str:
+    punctuation_remover = str.maketrans(' ',' ', punctuations)
+    if remove_punctuation:
+        new_text = text.translate(punctuation_remover)
+    if lowercase:
+        new_text = new_text.lower()
+    return new_text
 
-def generate_ngram(text, ngrams, split_by = ' '):
-    words = text.translate(punctuation_remover).lower().split(split_by)
-    output = []
-    for index in range(len(words) - ngrams+1):
-        output.append(tuple(words[index : index + ngrams]))
-    return tuple(output)
+def until_last(_dict: dict, leng: int, lst: list, generate: bool = False) -> dict: 
+    current_dict = _dict
+    preceding_words = []
+        
+    if generate:
+        for i in range(leng):
+            key = lst[i]
+            if key not in current_dict:
+                current_dict[key] = {}
+            current_dict = current_dict[key]
 
-def sort_ngram(ngrams):
-    ngram_with_frequency = {}
-    for ngram in ngrams:
-        ngram_with_frequency[ngram] = ngram_with_frequency.get(ngram, 0) + 1
-    list_of_ngrams = sorted(ngram_with_frequency.items(), key = lambda x: x[1], reverse = True)
-    return tuple(list_of_ngrams)
+        return current_dict
+    
+    else:
+        for j in range(leng):
+            key = lst[j]
+            preceding_words.append(key)
+            current_dict = current_dict[key]
+        
+        return current_dict, preceding_words
+    
+def generate_ngram(text: str, length: int = 3, split_by: str = ' ', file_write: bool = True):
+    text = cleanup(text)
+    words = text.split(split_by)
+    del text
+
+    word_collections = []
+    ngram = {}
+    ngram['___length___'] = length
+
+    for i in range(len(words) - length):
+        word_collections.append(words[i: i + length])
 
 
-with open('Corpus.txt','r') as c:
-    cr = c.read()
-    ngram_ = sort_ngram(generate_ngram(cr, 2))
-    print(ngram_)
-    with open('N-gram.txt','w') as o:
-        ngrams = ngram_
-        for ngram in ngrams:
-            o.write(f'{ngram[0]}: {ngram[1]}')
-            o.write('\n')
-    with open('N-gram.json', 'w') as f:
-        json.dump(ngram_, f, indent = 3)
+    #Assigning counts.
+    for word_collection in word_collections:
+        current_dict = until_last(_dict = ngram, leng = length - 1, lst = word_collection, generate = True)
 
-print('done')
+        last_word = word_collection[-1]
+        if last_word not in current_dict:
+            current_dict[last_word] = 1
+        else:
+            current_dict[last_word] += 1
+
+    del current_dict, word_collection, last_word
+
+    preceding_words_collection = [i[:-1] for i in word_collections]
+
+    with open('N-gram(readable).txt', 'w') as txt:
+        #Assigning probabilities.
+        for word_collection in word_collections:
+            current_dict, preceding_words = until_last(_dict = ngram, leng = length - 1, lst = word_collection)
+            
+            last_word = word_collection[-1]
+            word_count = current_dict[last_word]
+
+            sequence_occurence = preceding_words_collection.count(preceding_words)
+
+            if isinstance(word_count, int):
+                probability = word_count / sequence_occurence
+                current_dict[last_word] = probability
+            else:
+                probability = 1e-4321
+
+            if file_write:
+                for i in preceding_words:
+                    txt.write(f'{i} -> ')
+                txt.write(f'{last_word} : {probability}\n')
+
+    return ngram
