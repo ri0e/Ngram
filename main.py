@@ -29,13 +29,14 @@ def until_last(_dict: dict, leng: int, lst: list, generate: bool = False) -> dic
         
         return current_dict, preceding_words
     
-def generate_ngram(text: str, length: int = 5, split_by: str = ' '):
+def generate_ngram(text: str, length: int = 3, split_by: str = ' ', file_write: bool = True):
     text = cleanup(text)
     words = text.split(split_by)
     del text
 
     word_collections = []
     ngram = {}
+    ngram['___length___'] = length
 
     for i in range(len(words) - length):
         word_collections.append(words[i: i + length])
@@ -55,28 +56,25 @@ def generate_ngram(text: str, length: int = 5, split_by: str = ' '):
 
     preceding_words_collection = [i[:-1] for i in word_collections]
 
-    #Assigning probabilities.
-    for word_collection in word_collections:
-        current_dict, preceding_words = until_last(_dict = ngram, leng = length - 1, lst = word_collection)
-        
-        last_word = word_collection[-1]
-        word_count = current_dict[last_word]
+    with open('N-gram(readable).txt', 'w') as txt:
+        #Assigning probabilities.
+        for word_collection in word_collections:
+            current_dict, preceding_words = until_last(_dict = ngram, leng = length - 1, lst = word_collection)
+            
+            last_word = word_collection[-1]
+            word_count = current_dict[last_word]
 
-        sequence_occurence = preceding_words_collection.count(preceding_words)
+            sequence_occurence = preceding_words_collection.count(preceding_words)
 
-        if isinstance(word_count, int):
-            probability = word_count / sequence_occurence
-            current_dict[last_word] = probability
-        else:
-            probability = 1e-4321
+            if isinstance(word_count, int):
+                probability = word_count / sequence_occurence
+                current_dict[last_word] = probability
+            else:
+                probability = 1e-4321
 
-        with open('N-gram(readable).txt', 'w') as txt:
-            for i in preceding_words:
-                txt.write(i)
-            txt.write(last_word, probability)    
+            if file_write:
+                for i in preceding_words:
+                    txt.write(f'{i} -> ')
+                txt.write(f'{last_word} : {probability}\n')
+
     return ngram
-
-
-with open('Corpus.txt', 'r') as o:
-    with open('N-gram.json', 'w') as w:
-        json.dump(generate_ngram(o.read()), w, indent = 4)
