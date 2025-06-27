@@ -1,15 +1,19 @@
 import json
+import random
 
-def cleanup(text: str, remove_punctuation: bool = True, lowercase: bool = True, punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''') -> str:
-    punctuation_remover = str.maketrans(' ',' ', punctuations)
+punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
+split_by: str = ' '
+
+_punctuation_remover = str.maketrans(' ',' ', punctuations)
+
+def cleanup(text: str, remove_punctuation: bool = True, lowercase: bool = True) -> str:
     if remove_punctuation:
-        new_text = text.translate(punctuation_remover)
+        new_text = text.translate(_punctuation_remover)
     if lowercase:
         new_text = new_text.lower()
     return new_text
 
-def until_last(_dict: dict, leng: int, lst: list, generate: bool = False) -> dict: 
-    current_dict = _dict
+def until_last(current_dict: dict, leng: int, lst: list, generate: bool = False) -> dict: 
     preceding_words = []
         
     if generate:
@@ -24,12 +28,12 @@ def until_last(_dict: dict, leng: int, lst: list, generate: bool = False) -> dic
     else:
         for j in range(leng):
             key = lst[j]
-            preceding_words.append(key)
             current_dict = current_dict[key]
+            preceding_words.append(key)
         
         return current_dict, preceding_words
     
-def generate_ngram(text: str, length: int = 3, split_by: str = ' ', file_write: bool = True):
+def generate_ngram(text: str, length: int = 3, file_write: bool = True):
     text = cleanup(text)
     words = text.split(split_by)
     del text
@@ -40,7 +44,6 @@ def generate_ngram(text: str, length: int = 3, split_by: str = ' ', file_write: 
 
     for i in range(len(words) - length):
         word_collections.append(words[i: i + length])
-
 
     #Assigning counts.
     for word_collection in word_collections:
@@ -76,5 +79,33 @@ def generate_ngram(text: str, length: int = 3, split_by: str = ' ', file_write: 
                 for i in preceding_words:
                     txt.write(f'{i} -> ')
                 txt.write(f'{last_word} : {probability}\n')
-
     return ngram
+
+def predict_next_word(model: dict, text:str, choose: bool = True):
+    words = cleanup(text).split(split_by)
+    del text
+    
+    try:
+        length: int = model['___length___']
+    except:
+        length: int = int(input('Model length was not found. Can you please enter it here?_'))
+        
+    leng = length - 1
+    preceding_words = words[-leng:]
+    
+    last_dict,_ = until_last(ngram, leng, preceding_words)
+    
+    words = list(last_dict.keys())
+    probabilities = list(last_dict.values())
+    
+    if choose:
+        choice = random.choices(population = words, weights = probabilities, k = 1)[0]
+    #else:
+    #    choice = [x for x,_ in sorted(zip(words, probabilities), key = lambda x[2])]
+
+    print(choice)
+    return choice
+    
+with open ('N-gram.json','r') as N:
+    ngram = json.load(N)
+predict_next_word(ngram, 'dude walks up and blots out the sun', False)
