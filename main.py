@@ -69,8 +69,11 @@ def generate_ngram(text: str, length: int = 5, split_by: str = ' '):
             current_dict[last_word] = probability
         else:
             probability = 1e-4321
-            
-    
+
+        with open('N-gram(readable).txt', 'w') as txt:
+            for i in preceding_words:
+                txt.write(i)
+            txt.write(last_word, probability)    
     return ngram
 
 
