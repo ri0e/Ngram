@@ -110,10 +110,10 @@ def read_from_json(file: str = 'N-gram.json') -> dict:
 
 def write_to_json(model: dict, file: str = 'N-gram.json') -> None:
     with open(file, 'w') as N:
-        N.write(model)
+        dump(model)
     return None
 
 def add_to_json(model: dict, file: str = 'N-gram.json') -> None:
     with open(file, 'a') as N:
-        N.write(model)
+        dump(model)
     return None
