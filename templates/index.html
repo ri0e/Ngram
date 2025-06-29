@@ -27,5 +27,12 @@
 
             <input type="submit" value="Submit">
         </form>
+        
+        <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+            <label for = "json_upload">Upload your N-gram</label><br>
+            <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+            
+            <input type="submit" value="Submit">
+        </form>
     </body>
 </html>
