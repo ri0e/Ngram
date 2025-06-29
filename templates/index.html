@@ -7,32 +7,45 @@
         <title>Ngram</title>
     </head>
     <body>
-        <form method="POST" action="/submit_corpus">
+        <div class = 'generation'>
+            <form method="POST" action="/submit_corpus">
 
-            <label for = "corpus_input">Corpus: </label><br>
-            <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
+                <label for = "corpus_input">Corpus: </label><br>
+                <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
 
-            <label for = "length_input">Length (int): </label>
-            <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = '1' min = '1'><br>
+                <label for = "length_input">Length (int): </label>
+                <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = '1' min = '1'><br>
 
-            <details>
-                <summary> Additional settings </summary>
+                <details>
+                    <summary> Additional settings </summary>
 
-                <label for = "punctuation_input">Remove: </label>
-                <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amps;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
+                    <label for = "punctuation_input">Remove: </label>
+                    <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
 
-                <label for = "split_by_input">Split by: </label>
-                <input type = "text" id = "split_by_input" name = "split_by" value = " " placeholder = "Separate words by ..."><br>
-            </details>
+                    <!--<label for = "split_by_input">Split by: </label>
+                    <input type = "text" id = "split_by_input" name = "split_by" value = " " placeholder = "Separate words by ..."><br> -->
+                </details>
 
-            <input type="submit" value="Submit">
-        </form>
-        
-        <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
-            <label for = "json_upload">Upload your N-gram</label><br>
-            <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+                <input type="submit" value="Submit">
+            </form>
             
-            <input type="submit" value="Submit">
-        </form>
+            <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+                <label for = "json_upload">Upload your N-gram:</label><br>
+                <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+                
+                <input type="submit" value="Submit">
+            </form>
+    </div>
+
+    <form method = "POST" action = "/predict_text">
+        <label for = "predict">Input:</label><br>
+        <input type = "text" id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."><br>
+
+        <label for = "check_choose">Choose?</label> 
+        <input type = "checkbox" id = "check_choose" name = "choose" value = "yes"><br>
+
+        <input type="submit" value="Generate">
+    </form>
+
     </body>
 </html>

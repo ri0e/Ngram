@@ -1,12 +1,11 @@
 from json import load,dump
 import random
 
-punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
 split_by: str = ' '
 
-_punctuation_remover = str.maketrans(' ',' ', punctuations)
-
-def cleanup(text: str, remove_punctuation: bool = True, lowercase: bool = True) -> str:
+def cleanup(text: str, punctuations: str, remove_punctuation: bool = True, lowercase: bool = True) -> str:
+    _punctuation_remover = str.maketrans(' ',' ', punctuations)
+    
     if remove_punctuation:
         new_text = text.translate(_punctuation_remover)
     if lowercase:
@@ -33,8 +32,8 @@ def until_last(current_dict: dict, leng: int, lst: list, generate: bool = False)
         
         return current_dict, preceding_words
     
-def generate_ngram(text: str, length: int = 3, file_write: bool = True):
-    text = cleanup(text)
+def generate_ngram(text: str, length: int = 3, file_write: bool = True, punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''):
+    text = cleanup(text, punctuations = punctuations)
     words = text.split(split_by)
 
     word_collections = []
@@ -80,18 +79,18 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True):
     return ngram
 
 def predict_next_word(model: dict, text:str, choose: bool = True):
-    words = cleanup(text).split(split_by)
-    del text
+    words = cleanup(text = text, punctuations = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''').split(split_by)
     
     try:
         length: int = model['___length___']
     except:
-        length: int = int(input('Model length was not found. Can you please enter it here?_'))
+        #length: int = int(input('Model length was not found. Can you please enter it here?_'))
+        return None
         
     leng = length - 1
     preceding_words = words[-leng:]
     
-    last_dict,_ = until_last(ngram, leng, preceding_words)
+    last_dict,_ = until_last(model, leng, preceding_words)
     
     words = list(last_dict.keys())
     probabilities = list(last_dict.values())
