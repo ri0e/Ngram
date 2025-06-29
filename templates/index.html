@@ -9,14 +9,21 @@
     <body>
         <form method="POST" action="/submit_corpus">
 
-            <label for = "punctuation_input">To remove: </label>
-            <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amps;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Symbols to be removed..."><br>
+            <label for = "corpus_input">Corpus: </label><br>
+            <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
 
             <label for = "length_input">Length (int): </label>
-            <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram..." step = '1' min = '1'><br>
+            <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = '1' min = '1'><br>
 
-            <label for = "corpus_input">Enter Corpus: </label><br>
-            <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)..."></textarea><br>
+            <details>
+                <summary> Additional settings </summary>
+
+                <label for = "punctuation_input">Remove: </label>
+                <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amps;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
+
+                <label for = "split_by_input">Split by: </label>
+                <input type = "text" id = "split_by_input" name = "split_by" value = " " placeholder = "Separate words by ..."><br>
+            </details>
 
             <input type="submit" value="Submit">
         </form>

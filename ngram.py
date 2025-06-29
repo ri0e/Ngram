@@ -103,6 +103,17 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
         
     return choice
 
-def read_from_json(file: str = 'N-gram.json'):
+def read_from_json(file: str = 'N-gram.json') -> dict:
     with open(file, 'r') as N:
-        ngram = load(file)
+        ngram = load(N)
+    return ngram
+
+def write_to_json(model: dict, file: str = 'N-gram.json') -> None:
+    with open(file, 'w') as N:
+        N.write(model)
+    return None
+
+def add_to_json(model: dict, file: str = 'N-gram.json') -> None:
+    with open(file, 'a') as N:
+        N.write(model)
+    return None

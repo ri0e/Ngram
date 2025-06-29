@@ -13,9 +13,14 @@ def index():
 @app.route('/submit_corpus', methods=['POST'])
 def submit_corpus():
     if request.method == 'POST':
-        punctuations = request.form.get('punctuation_remove', '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''')
         length = int(float(request.form.get('ngram_length', '2')))
         corpus = request.form.get('corpus', '')
+        
+        punctuations = request.form.get('punctuation_remove', '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''')
+        split_by = request.form.get('split_by', ' ')
+        
+        ngram.punctuations = punctuations
+        ngram.split_by = split_by
         
         return f'punctuation {punctuations} <br> {ngram.generate_ngram(corpus, length)}'
 
