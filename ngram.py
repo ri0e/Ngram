@@ -36,7 +36,6 @@ def until_last(current_dict: dict, leng: int, lst: list, generate: bool = False)
 def generate_ngram(text: str, length: int = 3, file_write: bool = True):
     text = cleanup(text)
     words = text.split(split_by)
-    del text
 
     word_collections = []
     ngram = {}
@@ -54,8 +53,6 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True):
             current_dict[last_word] = 1
         else:
             current_dict[last_word] += 1
-
-    del current_dict, word_collection, last_word
 
     preceding_words_collection = [i[:-1] for i in word_collections]
 
