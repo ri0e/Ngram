@@ -1,1 +1,3 @@
-print(len('') == False)
+import os
+
+print(os.urandom(256).hex())

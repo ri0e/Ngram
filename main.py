@@ -15,8 +15,7 @@ app = Flask(__name__,
             template_folder='templates/',
             static_folder='')
 
-from os import urandom
-app.config['SECRET_KEY'] = urandom(128)
+app.config.from_json('config.json')
 
 allowed_ext = ['json']
 allowed_mime = ['application/json']
@@ -90,4 +89,4 @@ def predict_text():
         return redirect(url_for('index', message = f"Could not predict the next word: {e}", status = "error"))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True)
