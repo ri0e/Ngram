@@ -1,4 +1,4 @@
-import json
+from json import load,dump
 import random
 
 punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
@@ -47,7 +47,7 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True):
 
     #Assigning counts.
     for word_collection in word_collections:
-        current_dict = until_last(_dict = ngram, leng = length - 1, lst = word_collection, generate = True)
+        current_dict = until_last(current_dict = ngram, leng = length - 1, lst = word_collection, generate = True)
 
         last_word = word_collection[-1]
         if last_word not in current_dict:
@@ -62,7 +62,7 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True):
     with open('N-gram(readable).txt', 'w') as txt:
         #Assigning probabilities.
         for word_collection in word_collections:
-            current_dict, preceding_words = until_last(_dict = ngram, leng = length - 1, lst = word_collection)
+            current_dict, preceding_words = until_last(current_dict = ngram, leng = length - 1, lst = word_collection)
             
             last_word = word_collection[-1]
             word_count = current_dict[last_word]
@@ -79,6 +79,7 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True):
                 for i in preceding_words:
                     txt.write(f'{i} -> ')
                 txt.write(f'{last_word} : {probability}\n')
+                
     return ngram
 
 def predict_next_word(model: dict, text:str, choose: bool = True):
@@ -104,7 +105,7 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
         choice = [x for x,_ in sorted(list(zip(words, probabilities)), key = lambda x: x[1])][::-1]
         
     return choice
-    
-with open ('N-gram.json','r') as N:
-    ngram = json.load(N)
-predict_next_word(ngram, 'But what is', False)
+
+def read_from_json(file: str = 'N-gram.json'):
+    with open(file, 'r') as N:
+        ngram = load(file)
