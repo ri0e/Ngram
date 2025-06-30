@@ -15,7 +15,9 @@ app = Flask(__name__,
             template_folder='templates/',
             static_folder='')
 
-app.config.from_json('config.json')
+with open('config.json', 'r') as Cg:
+    config = json.load(Cg)
+app.config.update(config)
 
 allowed_ext = ['json']
 allowed_mime = ['application/json']
@@ -74,7 +76,7 @@ def upload_json():
             return redirect(url_for('index', message = f'An unexpected error occurred during processing: {e}', status = "error"))
         
     return redirect(url_for('index', message = "Something went wrong with the upload. Please try again.", status = "error"))
-#####################################################################################################
+
 @app.route('/predict_text', methods = ['POST'])
 def predict_text():
     text = request.form.get('user_input', '')

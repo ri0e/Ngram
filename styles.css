@@ -1,0 +1,33 @@
+body{
+    background: #0b151d;
+}
+
+.generation{
+    background: linear-gradient(#274157,#5d778d);
+    border-radius: 1em;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    color: white;
+}
+
+.divider {
+    width: 1px;
+    height: auto;
+    background-color: aliceblue;
+    margin-left: 2em;
+    margin-right: 2em;
+    color:#0b151d;
+}
+
+textarea {
+    border: None;
+    width: 25em;
+    min-width: 20rem;
+    max-width: 40em;
+    height: 15em;
+    min-height: 2em;
+    max-height: 20em;
+    border-radius: 1em;
+}

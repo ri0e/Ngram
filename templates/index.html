@@ -21,16 +21,19 @@
 
                     <label for = "punctuation_input">Remove: </label>
                     <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
-
-                    <!--<label for = "split_by_input">Split by: </label>
-                    <input type = "text" id = "split_by_input" name = "split_by" value = " " placeholder = "Separate words by ..."><br> -->
                 </details>
 
-                <input type="submit" value="Submit">
+                <input type="submit" value="Download">
             </form>
-            
+
+            <div class = "divider"></div>
+
             <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
-                <label for = "json_upload">Upload your N-gram:</label><br>
+                <label for = "json_upload">Upload your N-gram:
+                    <div class = "upload_content">
+                        <svg xmlns = "http://www.w3.org/2000/svg" width = ""viewBox = "0 0 40 40" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                    </div>
+                </label><br>
                 <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
                 
                 <input type="submit" value="Submit">
