@@ -4,51 +4,72 @@
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
         <link rel = "stylesheet" href = "styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Ngram</title>
     </head>
     <body>
+        <h1>N-gram</h1>
         <div class = 'generation'>
             <form method="POST" action="/submit_corpus">
+                <h3>Train</h3>
 
-                <label for = "corpus_input">Corpus: </label><br>
+                <label for = "corpus_input">Corpus:</label><br>
                 <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
 
-                <label for = "length_input">Length (int): </label>
+                <label for = "length_input">Length(int): </label>
                 <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = '1' min = '1'><br>
-
+                
                 <details>
                     <summary> Additional settings </summary>
-
-                    <label for = "punctuation_input">Remove: </label>
+                    <label for = "punctuation_input">Remove:</label>
                     <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
                 </details>
-
-                <input type="submit" value="Download">
+                
+                <label for = "download">
+                    <button><i class="fa fa-download"></i> Download</button>
+                </label>
+                <input id = "download" type= "submit" hidden/>
             </form>
-
+            
             <div class = "divider"></div>
-
+            
             <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+                <h3>Upload</h3>
+
                 <label for = "json_upload">Upload your N-gram:
                     <div class = "upload_content">
-                        <svg xmlns = "http://www.w3.org/2000/svg" width = ""viewBox = "0 0 40 40" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                        <svg xmlns = "http://www.w3.org/2000/svg" width = "50" height = "50" viewBox = "0 0 20 20" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                        <p>Browse a file</p>
+                        <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
                     </div>
-                </label><br>
-                <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+                </label>
                 
-                <input type="submit" value="Submit">
+                <label for = "upload">
+                    <button> <i class="fa fa-upload"></i> Upload</button>
+                </label>
+                <input id = "upload" type="submit" hidden/>
+            </form>
+            
+            <div class = "divider"></div>
+            
+            <form method = "POST" action = "/predict_text">
+                <h3>Generate</h3>
+
+                <label for = "predict">Input:</label><br>
+                <textarea id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."></textarea><br>
+                    
+                <label for = "check_choose">Choose?</label> 
+                <input type = "checkbox" id = "check_choose" name = "choose" value = "yes"><br>
+            
+                <label for = "generate">
+                    <button>Generate</button>
+                </label>
+                <input id = "generate" type="submit" hidden/>
             </form>
     </div>
-
-    <form method = "POST" action = "/predict_text">
-        <label for = "predict">Input:</label><br>
-        <input type = "text" id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."><br>
-
-        <label for = "check_choose">Choose?</label> 
-        <input type = "checkbox" id = "check_choose" name = "choose" value = "yes"><br>
-
-        <input type="submit" value="Generate">
-    </form>
-
+    
     </body>
 </html>
