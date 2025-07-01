@@ -1,7 +1,7 @@
 import ngram
 import io
 import json
-from flask import Flask, render_template, request, send_file, session, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_file, session, jsonify
 from datetime import datetime
 
 def generate_filename(name: str, extension: str) -> str:
