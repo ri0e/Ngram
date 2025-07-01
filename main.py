@@ -1,12 +1,12 @@
 import ngram
 import io
 import json
-from flask import Flask, render_template, request, send_file, session, redirect, url_for
+from flask import Flask, render_template, request, send_file, session, redirect, url_for, jsonify
 from datetime import datetime
 
 def generate_filename(name: str, extension: str) -> str:
-    timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-    return f"{name}_{timestamp}.{extension}"
+    timestamp = datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+    return f'{name}_{timestamp}.{extension}'
 
 def allowed_file_extension(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_ext
@@ -53,12 +53,18 @@ def submit_corpus():
 @app.route('/upload_json', methods = ['POST'])
 def upload_json():
     if 'json_file' not in request.files:
-        return redirect(url_for('index', message = "No file part in the request.", status = "error"))
+        message = 'No file part in the request.'
+        status = 'error'
+        #return redirect(url_for('index', message = message, status = status))
+        return jsonify(status = status, message = message)
     
     file = request.files['json_file']
     
     if file.filename == '':
-        return redirect(url_for('index', message = "No selected file.", status = "error"))
+        message = 'No selected file.'
+        status = 'error'
+        #return redirect(url_for('index', message = message, status = status))
+        return jsonify(status = status, message = message)
 
     if file:
         try:
@@ -68,27 +74,45 @@ def upload_json():
 
             session['ngram'] = _ngram
             
-            return redirect(url_for('index', message = "File uploaded and parsed successfully!", status = "success"))
+            message = 'File uploaded and parsed successfully!'
+            status = 'success'
+            #return redirect(url_for('index', message = message, status = status))
+            return jsonify(status = status, message = message)
 
         except json.JSONDecodeError as e:
-            return redirect(url_for('index', message = f'Error parsing JSON: File content is not valid JSON. ({e})', status = "error"))
+            message = f'Error parsing JSON: File content is not valid JSON.({e})'
+            status = 'error'
+            #return redirect(url_for('index', message = message, status = status))
+            return jsonify(status = status, message = message)
         except Exception as e:
-            return redirect(url_for('index', message = f'An unexpected error occurred during processing: {e}', status = "error"))
+            message = f'An unexpected error occurred during processing: {e}'
+            status = 'error'
+            #return redirect(url_for('index', message = message, status = status))
+            return jsonify(status = status, message = message)
         
-    return redirect(url_for('index', message = "Something went wrong with the upload. Please try again.", status = "error"))
-
+    message = 'Something went wrong with the upload. Please try again.'
+    status = 'error'
+    #return redirect(url_for('index', message = 'Something went wrong with the upload. Please try again.', status = 'error'))
+    return jsonify(status = status, message = message)
+    
 @app.route('/predict_text', methods = ['POST'])
 def predict_text():
     text = request.form.get('user_input', '')
     choose = 'choose' in request.form
     if 'ngram' not in session:
-        return redirect(url_for('index', message = "No N-gram data found in session. Please upload or generate one first.", status = "error"))
+        message = 'No N-gram data found in session. Please upload or generate one first.'
+        status = 'error'
+        #return redirect(url_for('index', message = message, status = status))
+        return jsonify(status = status, message = message)
     
     try:
         next_word = ngram.predict_next_word(session['ngram'], text, choose)
         return f'{next_word}'
     except Exception as e:
-        return redirect(url_for('index', message = f"Could not predict the next word: {e}", status = "error"))
+        message = f'Could not predict the next word: {e}'
+        status = 'error'
+        #return redirect(url_for('index', message = message, status = status))
+        return jsonify(status = status, message = message)
 
 if __name__ == '__main__':
     app.run(debug = True)
