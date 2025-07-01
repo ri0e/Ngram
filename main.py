@@ -11,9 +11,7 @@ def generate_filename(name: str, extension: str) -> str:
 def allowed_file_extension(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_ext
 
-app = Flask(__name__,
-            template_folder='templates/',
-            static_folder='')
+app = Flask(__name__,)
 
 with open('config.json', 'r') as Cg:
     config = json.load(Cg)
@@ -107,7 +105,8 @@ def predict_text():
     
     try:
         next_word = ngram.predict_next_word(session['ngram'], text, choose)
-        return f'{next_word}'
+        return jsonify(next_word = next_word)
+    
     except Exception as e:
         message = f'Could not predict the next word: {e}'
         status = 'error'

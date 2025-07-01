@@ -3,7 +3,7 @@
     <head>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-        <link rel = "stylesheet" href = "styles.css">
+        <link rel = "stylesheet" href = "{{ url_for("static", filename = "styles.css") }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>N-gram</h1>
-        <div class = 'generation'>
+        <div class = 'generation' id = 'generation'>
             <form method="POST" action="/submit_corpus">
                 <h3>Train</h3>
 
@@ -36,7 +36,7 @@
             
             <div class = "divider"></div>
             
-            <form method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+            <form class = "intercept" method = "POST" action = "/upload_json" enctype = "multipart/form-data">
                 <h3>Upload</h3>
 
                 <label for = "json_upload">Upload your N-gram:
@@ -55,7 +55,7 @@
             
             <div class = "divider"></div>
             
-            <form method = "POST" action = "/predict_text">
+            <form class = "intercept" method = "POST" action = "/predict_text">
                 <h3>Generate</h3>
 
                 <label for = "predict">Input:</label><br>
@@ -67,10 +67,19 @@
                 <label for = "generate">
                     <button>Generate</button>
                 </label>
+
                 <input id = "generate" type="submit" hidden/>
             </form>
-    </div>
 
-    <script src = "script.js"></script>
+        </div>
+        <div id = "output">Output
+            oppo<br>
+            oppo<br>
+            oppo<br>
+            oppo<br>
+        </div>
+        <div id = 'message-area'>Message area</div>
+        
+    <script src = "{{ url_for('static', filename='script.js') }}"></script>
     </body>
 </html>
