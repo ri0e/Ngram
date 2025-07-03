@@ -99,8 +99,13 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
         choice = random.choices(population = words, weights = probabilities, k = 1)[0]
     else:
         choice = [x for x,_ in sorted(list(zip(words, probabilities)), key = lambda x: x[1])][::-1]
-        
     return choice
+
+def predict_more(model: dict, text: str, word_count: int):
+    sentence = predict_next_word(model, text)
+    for i in range(word_count):
+        sentence += predict_next_word(model, sentence)
+    return sentence
 
 def read_from_json(file: str = 'N-gram.json') -> dict:
     with open(file, 'r') as N:

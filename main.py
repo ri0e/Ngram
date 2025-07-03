@@ -31,7 +31,6 @@ def submit_corpus():
         corpus = request.form.get('corpus', '')
         
         punctuations = request.form.get('punctuation_remove', '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''')
-        #split_by = request.form.get('split_by', ' ')
         
         _ngram = ngram.generate_ngram(corpus, length, punctuations = punctuations)
         session['ngram'] = _ngram
@@ -53,7 +52,6 @@ def upload_json():
     if 'json_file' not in request.files:
         message = 'No file part in the request.'
         status = 'error'
-        #return redirect(url_for('index', message = message, status = status))
         return jsonify(status = status, message = message)
     
     file = request.files['json_file']
@@ -61,7 +59,6 @@ def upload_json():
     if file.filename == '':
         message = 'No selected file.'
         status = 'error'
-        #return redirect(url_for('index', message = message, status = status))
         return jsonify(status = status, message = message)
 
     if file:
@@ -74,43 +71,44 @@ def upload_json():
             
             message = 'File uploaded and parsed successfully!'
             status = 'success'
-            #return redirect(url_for('index', message = message, status = status))
             return jsonify(status = status, message = message)
 
         except json.JSONDecodeError as e:
-            message = f'Error parsing JSON: File content is not valid JSON.({e})'
+            message = f'Error parsing JSON: File content is not valid JSON. <br> ({e})'
             status = 'error'
-            #return redirect(url_for('index', message = message, status = status))
             return jsonify(status = status, message = message)
         except Exception as e:
-            message = f'An unexpected error occurred during processing: {e}'
+            message = f'An unexpected error occurred during processing: <br> {e}'
             status = 'error'
-            #return redirect(url_for('index', message = message, status = status))
             return jsonify(status = status, message = message)
         
     message = 'Something went wrong with the upload. Please try again.'
     status = 'error'
-    #return redirect(url_for('index', message = 'Something went wrong with the upload. Please try again.', status = 'error'))
     return jsonify(status = status, message = message)
     
 @app.route('/predict_text', methods = ['POST'])
 def predict_text():
     text = request.form.get('user_input', '')
     choose = 'choose' in request.form
+    predict_many = 'predict_many' in request.form
+    
     if 'ngram' not in session:
         message = 'No N-gram data found in session. Please upload or generate one first.'
         status = 'error'
-        #return redirect(url_for('index', message = message, status = status))
         return jsonify(status = status, message = message)
     
     try:
-        next_word = ngram.predict_next_word(session['ngram'], text, choose)
+        if predict_many:
+            word_count = request.form.get('word_count', 2)
+            next_word = ngram.predict_more(session['ngram'], text, word_count)
+        else:
+            next_word = ngram.predict_next_word(session['ngram'], text, choose)
+            
         return jsonify(next_word = next_word)
     
     except Exception as e:
-        message = f'Could not predict the next word: {e}'
+        message = f'Could not predict the next word: <br> {e}'
         status = 'error'
-        #return redirect(url_for('index', message = message, status = status))
         return jsonify(status = status, message = message)
 
 if __name__ == '__main__':

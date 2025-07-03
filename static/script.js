@@ -4,33 +4,33 @@ function output(text){
 }
 
 function displayMessage(status, message){
-    const messageArea = document.getElementById('message-area');
+    const messageArea = document.getElementsByClassName('message-area')[0];
 
-    messageArea.className = '';
+    messageArea.className = 'message-area';
     messageArea.textContent = '';
     messageArea.style.display = 'none';
 
     messageArea.classList.add(status);
-    messageArea.innerHTML = status + ':<br>' + message;
+    const symbol = status === 'success' ? '✔' : (status === 'error' ? 'X' : '');
+    messageArea.innerHTML = `<p style = "font-size: 1em">${symbol} <span style = "font-size: 0.5em">${message}</span></p>`;
 
     messageArea.style.display = 'block';
     messageArea.style.opacity = '1';
 
+    messageArea.addEventListener('click', function(){
+        messageArea.style.opacity = '0';
+        messageArea.style.display = 'none';
+        return;
+    });
+
     setTimeout(() => {
         messageArea.style.opacity = '0';
-        setTimeout(() => {
-            messageArea.style.display = 'none';
-        }, 500);
-    }, 5000);
+        messageArea.style.display = 'none';
+    }, 7000);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     const generation = document.getElementById('generation');
-
-    if (!generation) {
-        return;
-    }
-    
     generation.addEventListener('submit', async function(event){
         console.log('DEBUG: Submit event caught by formsContainer!');
         const form = event.target.closest('.intercept');
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             output(data.next_word);
-            displayMessage('success', 'Successfully generated the text.');
+            displayMessage('success', 'Text generated successfully.');
         }
 
         catch(error){
