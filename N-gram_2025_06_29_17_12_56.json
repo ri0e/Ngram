@@ -1,0 +1,284 @@
+{
+    "___length___": 2,
+    "i": {
+        "am": 0.375,
+        "have": 0.125,
+        "might": 0.125,
+        "type": 0.125,
+        "just": 0.125,
+        "will": 0.125
+    },
+    "am": {
+        "going": 0.5,
+        "not": 0.5
+    },
+    "going": {
+        "to": 1.0
+    },
+    "to": {
+        "do": 0.25,
+        "have": 0.25,
+        "be": 0.25,
+        "break": 0.25
+    },
+    "do": {
+        "it": 1.0
+    },
+    "it": {
+        "i": 1.0
+    },
+    "have": {
+        "made": 0.3333333333333333,
+        "over": 0.3333333333333333,
+        "to": 0.3333333333333333
+    },
+    "made": {
+        "up": 0.5,
+        "that": 0.5
+    },
+    "up": {
+        "my": 1.0
+    },
+    "my": {
+        "mind": 1.0
+    },
+    "mind": {
+        "these": 1.0
+    },
+    "these": {
+        "are": 1.0
+    },
+    "are": {
+        "the": 1.0
+    },
+    "the": {
+        "first": 0.08333333333333333,
+        "new": 0.08333333333333333,
+        "best": 0.08333333333333333,
+        "longest": 0.08333333333333333,
+        "entire": 0.08333333333333333,
+        "known": 0.08333333333333333,
+        "beat": 0.08333333333333333,
+        "current": 0.08333333333333333,
+        "whole": 0.08333333333333333,
+        "english": 0.08333333333333333,
+        "basic": 0.08333333333333333,
+        "average": 0.08333333333333333
+    },
+    "first": {
+        "few": 1.0
+    },
+    "few": {
+        "words": 1.0
+    },
+    "words": {
+        "of": 0.5,
+        "the": 0.5
+    },
+    "of": {
+        "the": 1.0
+    },
+    "new": {
+        "the": 1.0
+    },
+    "best": {
+        "": 1.0
+    },
+    "": {
+        "the": 1.0
+    },
+    "longest": {
+        "text": 1.0
+    },
+    "text": {
+        "in": 1.0
+    },
+    "in": {
+        "the": 0.5,
+        "this": 0.5
+    },
+    "entire": {
+        "history": 1.0
+    },
+    "history": {
+        "of": 1.0
+    },
+    "known": {
+        "universe": 1.0
+    },
+    "universe": {
+        "this": 1.0
+    },
+    "this": {
+        "has": 0.6666666666666666,
+        "so": 0.3333333333333333
+    },
+    "has": {
+        "to": 1.0
+    },
+    "over": {
+        "35000": 1.0
+    },
+    "35000": {
+        "words": 1.0
+    },
+    "beat": {
+        "the": 1.0
+    },
+    "current": {
+        "world": 1.0
+    },
+    "world": {
+        "record": 1.0
+    },
+    "record": {
+        "set": 1.0
+    },
+    "set": {
+        "by": 1.0
+    },
+    "by": {
+        "that": 1.0
+    },
+    "that": {
+        "person": 0.5,
+        "flaming": 0.5
+    },
+    "person": {
+        "who": 1.0
+    },
+    "who": {
+        "made": 1.0
+    },
+    "flaming": {
+        "chicken": 1.0
+    },
+    "chicken": {
+        "handbooky": 1.0
+    },
+    "handbooky": {
+        "thingy": 1.0
+    },
+    "thingy": {
+        "i": 1.0
+    },
+    "might": {
+        "just": 0.5,
+        "get": 0.5
+    },
+    "just": {
+        "be": 0.5,
+        "discovered": 0.5
+    },
+    "be": {
+        "saying": 0.5,
+        "crazy": 0.5
+    },
+    "saying": {
+        "random": 1.0
+    },
+    "random": {
+        "things": 1.0
+    },
+    "things": {
+        "the": 1.0
+    },
+    "whole": {
+        "time": 1.0
+    },
+    "time": {
+        "i": 1.0
+    },
+    "type": {
+        "in": 1.0
+    },
+    "so": {
+        "you": 0.5,
+        "i": 0.5
+    },
+    "you": {
+        "might": 1.0
+    },
+    "get": {
+        "confused": 1.0
+    },
+    "confused": {
+        "a": 1.0
+    },
+    "a": {
+        "lot": 1.0
+    },
+    "lot": {
+        "i": 1.0
+    },
+    "discovered": {
+        "something": 1.0
+    },
+    "something": {
+        "terrible": 1.0
+    },
+    "terrible": {
+        "autocorrect": 1.0
+    },
+    "autocorrect": {
+        "is": 1.0
+    },
+    "is": {
+        "on": 1.0
+    },
+    "on": {
+        "no": 1.0
+    },
+    "no": {
+        "this": 1.0
+    },
+    "crazy": {
+        "so": 1.0
+    },
+    "will": {
+        "have": 1.0
+    },
+    "break": {
+        "all": 1.0
+    },
+    "all": {
+        "the": 1.0
+    },
+    "english": {
+        "language": 1.0
+    },
+    "language": {
+        "rules": 1.0
+    },
+    "rules": {
+        "and": 1.0
+    },
+    "and": {
+        "the": 1.0
+    },
+    "basic": {
+        "knowledge": 1.0
+    },
+    "knowledge": {
+        "of": 1.0
+    },
+    "average": {
+        "human": 1.0
+    },
+    "human": {
+        "being": 1.0
+    },
+    "being": {
+        "i": 0.5,
+        "however": 0.5
+    },
+    "not": {
+        "an": 1.0
+    },
+    "an": {
+        "average": 1.0
+    },
+    "however": {
+        "i": 1.0
+    }
+}

@@ -31,6 +31,20 @@ function displayMessage(status, message){
 
 document.addEventListener('DOMContentLoaded', function() {
     const generation = document.getElementById('generation');
+    const choose = document.getElementById('check_choose');
+    const predict_many = document.getElementById('predict_many');
+    const word_count = document.getElementById('word_count_label');
+
+    predict_many.addEventListener('click', function(){
+        if (predict_many.checked){
+            choose.disabled = true;
+            word_count.hidden = false;
+        } else {
+            choose.disabled = false;
+            word_count.hidden = true;
+        }
+    });
+
     generation.addEventListener('submit', async function(event){
         console.log('DEBUG: Submit event caught by formsContainer!');
         const form = event.target.closest('.intercept');

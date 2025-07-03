@@ -103,6 +103,7 @@ input {
     border-radius: 10px;
     background-color: white;
     width: fit-content;
+    max-width: 85%;
     height: fit-content;
 }
 

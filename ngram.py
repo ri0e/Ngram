@@ -83,14 +83,13 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
     
     try:
         length: int = model['___length___']
-    except:
-        #length: int = int(input('Model length was not found. Can you please enter it here?_'))
-        return None
+    except Exception as e:
+        return e
         
     leng = length - 1
     preceding_words = words[-leng:]
     
-    last_dict,_ = until_last(model, leng, preceding_words)
+    last_dict = until_last(model, leng, preceding_words)[0]
     
     words = list(last_dict.keys())
     probabilities = list(last_dict.values())
@@ -102,9 +101,13 @@ def predict_next_word(model: dict, text:str, choose: bool = True):
     return choice
 
 def predict_more(model: dict, text: str, word_count: int):
-    sentence = predict_next_word(model, text)
-    for i in range(word_count):
-        sentence += predict_next_word(model, sentence)
+    sentence = f'{text} {predict_next_word(model, text)}'
+    for i in range(word_count - 1):
+        try:
+            sentence += f' {predict_next_word(model, sentence)}'
+        except:
+            sentence += f' <UNAVAILABLE>'
+            
     return sentence
 
 def read_from_json(file: str = 'N-gram.json') -> dict:

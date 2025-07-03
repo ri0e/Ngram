@@ -99,7 +99,7 @@ def predict_text():
     
     try:
         if predict_many:
-            word_count = request.form.get('word_count', 2)
+            word_count = int(float(request.form.get('word_count', 3)))
             next_word = ngram.predict_more(session['ngram'], text, word_count)
         else:
             next_word = ngram.predict_next_word(session['ngram'], text, choose)

@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Ngram</title>
+        <title>Ngram Models</title>
     </head>
     <body>
         <h1>N-gram</h1>
@@ -18,7 +18,7 @@
 
                 <label for = "corpus_input">
                     Corpus:<br>
-                    <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea>
+                    <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
                 </label>
 
                 <label for = "length_input">
@@ -79,9 +79,9 @@
                     <input type = "checkbox" id = "predict_many" name = "predict_many" value = "no">
                 </label><br>
 
-                <label for = "word_count" hidden/>
+                <label for = "word_count" id = "word_count_label" hidden/>
                     Word count:<br>
-                    <input type = "number" id = "word_count" name = "ngram_length" value = "1" placeholder = "How many to predict" step = '1' min = '1'><br>
+                    <input type = "number" id = "word_count" name = "word_count" value = "3" placeholder = "How many to predict" step = '1' min = '1'><br>
                 </label>
             
                 <label for = "generate">
