@@ -1,5 +1,7 @@
 :root {
     --background: #020817;
+    --navigation: #081528;
+    --list: #4e6287;
     --accent: #b0e3f5;
     --panels: #091027;
     --font-color: #ffffff;
@@ -14,7 +16,45 @@ body{
     font-weight: 400;
 }
 
-h1{
+a {
+    color: var(--font-color);
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    background-color: var(--navigation);
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    overflow: scroll;
+    width: 95%;
+    margin: 0;
+    padding: 0;
+}
+
+nav h2 {
+    padding: 10px;
+    margin: 0 1em;
+}
+
+nav a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-left: 1px solid var(--list);
+    border-radius: 10px;
+}
+
+nav a:hover {
+    background-color: var(--list);
+}
+
+h1 {
     text-align: center;
     font-size: 3em;
 }
@@ -22,6 +62,7 @@ h1{
 h3{
     text-align: center;
 }
+
 
 button{
     background-color: var(--accent);
@@ -64,10 +105,28 @@ input {
     max-width: 25em;
 }
 
-#content-1, #content-2, #content-3{
+#content-1, #content-2, #content-3, #content-4{
     margin-left: 4em;
     margin-right: 4em;
 }
+
+#cont {
+    overflow: scroll;
+}
+
+#output {
+    color: black;
+    padding: 5px 15px;
+    margin: auto;
+    margin-bottom: 3em;
+    border: solid 2px black;
+    border-radius: 10px;
+    background-color: white;
+    width: fit-content;
+    max-width: 85%;
+    height: fit-content;
+}
+
 .generation {
     background: linear-gradient(var(--gradient1),var(--gradient2));
     border-radius: 1em;
@@ -77,6 +136,11 @@ input {
     justify-content: center;
     padding: 1em;
     margin: 10px auto;
+}
+
+.generation h3 {
+    text-align: center;
+    font-size: 1.5em;
 }
 
 .message-area {
@@ -99,29 +163,16 @@ input {
     border: dashed #2e1919 4px;
 }
 
-#output {
-    color: black;
-    padding: 5px 15px;
-    margin: auto;
-    border: solid 2px black;
-    border-radius: 10px;
-    background-color: white;
-    width: fit-content;
-    max-width: 85%;
-    height: fit-content;
-}
-
-.generation h3 {
-    text-align: center;
-    font-size: 1.5em;
-}
-
 .divider {
     width: 1px;
     height: auto;
     background-color: var(--accent);
     margin-left: 2em;
     margin-right: 2em;
+}
+
+.break {
+    margin: 2em;
 }
 
 .upload_content {

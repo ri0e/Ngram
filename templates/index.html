@@ -12,8 +12,20 @@
         <title>Ngram Models</title>
     </head>
     <body>
-        <h1>N-gram Models</h1>
+        <nav>
+            <ul>
+                <h2>N-gram Models</h2>
+                <li><a href = "#content-1" target = "_self">What are N-grams?</a></li>
+                <li><a href = "#content-2" target = "_self">What are N-gram Language Models?</a></li>
+                <li><a href = "#content-3" target = "_self">How my model works</a></li>
+                <li><a href = "#content-4" target = "_self">How to use</a></li>
+                <li><a href = "#generation" target = "_self">Try it</a></li>
+            </ul>
+        </nav>
+
+        <h1 id = "start">N-gram Models</h1>
         <div id = "content-1">
+            <div class = "break">&nbsp;</div>
             <h2>What are N-grams?</h2>
             <p>An n-gram is a sequence of <strong>n</strong> adjacent phonemes, syllables, letters or words in a particular order. N-grams can be classified into many divisions based on their n value.
                 For example, if n is 1, we call it a unigram; n = 2, a bigram and so on with the prefixes being describing of their sequences.<br>
@@ -31,6 +43,7 @@
         </div>
 
         <div id = "content-2">
+            <div class = "break">&nbsp;</div>
             <h2>What are N-gram Language Models?</h2>
             <p>An N-gram language model predicts the probability of a given N-gram within any sequence of words in a language (or the ones in its training data). The model predicts the next word by taking the last
                sequences of words in the input and comparing it with the available data to find which word is the most likely to occur next. Some may find this useful as it provides an accurate relationsip between
@@ -41,18 +54,19 @@
         </div>
 
         <div id = "content-3">
+            <div class = "break">&nbsp;</div>
             <h2>How my model works</h2>
             <p> My N-gram model is fairly simple. It doesn't use any of those smoothing techniques nor does it require different functions to create and use different n-grams.<br>
                 It basically works by using nested dictionaries where the previous word is the key for the current one. It generates dictionaries for a bigram like this:<br>
-                <ul>
+                <ul style = "list-style-type: none;">
                     <li>{ "Word1": {
-                        <ul>
+                        <ul style = "list-style-type: none;">
                             <li> "Word2" : 0.5,
                             <li> "Word9" : 0.5 },
                         </ul>
 
                     <li> "Word2": {
-                        <ul>
+                        <ul style = "list-style-type: none;">
                             <li> "Word3" : 0.3333333333333,
                             <li> "Word18" : 0.3333333333333,
                             <li> "Word29" : 0.3333333333333 }}
@@ -63,85 +77,118 @@
             </p>
         </div>
         
-        <div class = "generation" id = "generation">
-            <form method="POST" action="/submit_corpus">
-                <h3>Train</h3>
+        <div id = "content-4">
+            <div class = "break">&nbsp;</div>
+            <h2>How to use</h2>
+            <h4>Training</h4>
+            <ol>
+                <li>Enter large text you want to train the N-gram with in the corpus field.
+                <li>Choose the type of N-gram (1 = unigram; 2 = bigram ...).
+                <li>Choose what symbols to remove from the "Additional settings" dropdown.
+                <li>Click the download button (It will download the json file to your computer).
+            </ol>
 
-                <label for = "corpus_input">
-                    Corpus:<br>
-                    <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
-                </label>
+            <h4>Upoloading</h4>
+            This is where you upload the N-gram that will be used to predict text.<br>
+            If you have a json file already, you don't need to train it again.
+            <ol>
+                <li>Click the field that asks you to upload (drag and drop not implemented yet).
+                <li>Browse to your Json file. It should look like "Ngram_{Time-stamp}.json".
+                <li>Click the upload button.
+            </ol>
 
-                <label for = "length_input">
-                    N-gram length:<br>
-                    <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = "1" min = "1">
-                </label>
-                
-                <details>
-                    <summary> Additional settings </summary>
-                    <label for = "punctuation_input">Remove:</label>
-                    <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
-                </details>
-                
-                <label for = "download">
-                    <button><i class="fa fa-download"></i> Download</button>
-                    <input id = "download" type= "submit" hidden/>
-                </label>
+            <h4>Generating</h4>
+            <ol>
+                <li>Enter text that appears in your corpus.
+                <li>Check "choose?" if you want to select only one word. <br>
+                    Uncheck "choose?" if you want to see what the available words are.
+                <li>Check "predict many?" if you want to generate words repeatedly. ("choose?" will be disabled and new field would appear.)
+                <li>Choose the word count. (This is the amount of words that the n-gram will generate.)
+                <li>Click "Generate" and you will find your output under "Output:".
+            </ol>
+        </div>
+        <br>
+        <div id = "cont">
+            <div class = "generation" id = "generation">
+                <form method="POST" action="/submit_corpus">
+                    <h3>Train</h3>
 
-            </form>
-            
-            <div class = "divider"></div>
-            
-            <form class = "intercept" method = "POST" action = "/upload_json" enctype = "multipart/form-data">
-                <h3>Upload</h3>
+                    <label for = "corpus_input">
+                        Corpus:<br>
+                        <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
+                    </label>
 
-                <label for = "json_upload">Upload your N-gram:
-                    <div class = "upload_content">
-                        <svg xmlns = "http://www.w3.org/2000/svg" width = "50" height = "50" viewBox = "0 0 20 20" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
-                        <p>Browse a file</p>
-                        <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
-                    </div>
-                </label>
-                
-                <label for = "upload">
-                    <button> <i class="fa fa-upload"></i> Upload</button>
-                    <input id = "upload" type="submit" hidden/>
-                </label>
-
-            </form>
-            
-            <div class = "divider"></div>
-            
-            <form class = "intercept" method = "POST" action = "/predict_text">
-                <h3>Generate</h3>
-
-                <label for = "predict">
-                    Input:<br>
-                    <textarea id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."></textarea><br>
-                </label>
+                    <label for = "length_input">
+                        N-gram type/length:<br>
+                        <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = "1" min = "1">
+                    </label>
                     
-                <label for = "check_choose">
-                    Choose?
-                    <input type = "checkbox" id = "check_choose" name = "choose" checked>
-                </label><br>
+                    <details>
+                        <summary> Additional settings </summary>
+                        <label for = "punctuation_input">Remove:</label>
+                        <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
+                    </details>
+                    
+                    <label for = "download">
+                        <button><i class="fa fa-download"></i> Download</button>
+                        <input id = "download" type= "submit" hidden/>
+                    </label>
 
-                <label for = "predict_many">
-                    predict many?
-                    <input type = "checkbox" id = "predict_many" name = "predict_many" value = "no">
-                </label><br>
+                </form>
+                
+                <div class = "divider"></div>
+                
+                <form class = "intercept" method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+                    <h3>Upload</h3>
 
-                <label for = "word_count" id = "word_count_label" hidden/>
-                    Word count:<br>
-                    <input type = "number" id = "word_count" name = "word_count" value = "3" placeholder = "How many to predict" step = "1" min = "1"><br>
-                </label>
-            
-                <label for = "generate">
-                    <button>Generate</button>
-                </label>
+                    <label for = "json_upload">Upload your N-gram:
+                        <div class = "upload_content">
+                            <svg xmlns = "http://www.w3.org/2000/svg" width = "50" height = "50" viewBox = "0 0 20 20" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                            <p>Browse a file</p>
+                            <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+                        </div>
+                    </label>
+                    
+                    <label for = "upload">
+                        <button> <i class="fa fa-upload"></i> Upload</button>
+                        <input id = "upload" type="submit" hidden/>
+                    </label>
 
-                <input id = "generate" type="submit" hidden/>
-            </form>
+                </form>
+                
+                <div class = "divider"></div>
+                
+                <form class = "intercept" method = "POST" action = "/predict_text">
+                    <h3>Generate</h3>
 
+                    <label for = "predict">
+                        Input:<br>
+                        <textarea id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."></textarea><br>
+                    </label>
+                        
+                    <label for = "check_choose">
+                        Choose?
+                        <input type = "checkbox" id = "check_choose" name = "choose" checked>
+                    </label><br>
+
+                    <label for = "predict_many">
+                        predict many?
+                        <input type = "checkbox" id = "predict_many" name = "predict_many" value = "no">
+                    </label><br>
+
+                    <label for = "word_count" id = "word_count_label" hidden/>
+                        Word count:<br>
+                        <input type = "number" id = "word_count" name = "word_count" value = "3" placeholder = "How many to predict" step = "1" min = "1"><br>
+                    </label>
+                
+                    <label for = "generate">
+                        <button>Generate</button>
+                    </label>
+
+                    <input id = "generate" type="submit" hidden/>
+                </form>
+
+            </div>
         </div>
 
         <h3>Output:</h3>
