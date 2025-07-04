@@ -1,6 +1,6 @@
 # N-gram
-Simple N-gram model that utilizes dictionaries to achieve its purpose. This N-gram model provides a modular approach to gernerating (and reading hopefully) N-grams.
-It basically uses nested dictionaries in this way: (for trigram)
+Simple N-gram model that utilizes dictionaries to achieve its purpose. This N-gram model provides a modular approach for gernerating and reading N-grams.
+It basically uses nested dictionaries in this way: (for bigrams)
 ```
 'word1': {
 .  'word2': 0.5
@@ -10,8 +10,7 @@ It basically uses nested dictionaries in this way: (for trigram)
 .   'word3': 1
 } ...
 ```
-(sorry if you couldn't understand this you can watch the devlogs I have posted if you want more information on this or even ask me.) (will update this later)
-## usage
+## usage for the python library
 ```
 import ngram
 ```
