@@ -59,3 +59,4 @@ An extension to predict_next_word.
 - model(dict) - your ngram.
 - text(str) - text to predict from.
 - word_count(int) - the amount of words you want to predict.
+
