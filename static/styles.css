@@ -49,12 +49,6 @@ textarea {
     font-size: 0.8em;
 }
 
-#predict {
-    height: 10em;
-    width: 25em;
-    max-width: 25em;
-}
-
 input {
     background-color: var(--panels);
     border-radius: 0.5em;
@@ -64,6 +58,16 @@ input {
     font-size: 1em;
 }
 
+#predict {
+    height: 10em;
+    width: 25em;
+    max-width: 25em;
+}
+
+#content-1, #content-2, #content-3{
+    margin-left: 4em;
+    margin-right: 4em;
+}
 .generation {
     background: linear-gradient(var(--gradient1),var(--gradient2));
     border-radius: 1em;
