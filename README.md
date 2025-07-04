@@ -26,14 +26,36 @@ generate_ngram(text, ngramLength, file_write, punctuations)
 word1 -> word2 : probability
 ```
 ### Writing to file
+#### Replacing the entire file
 ```
-write_to_json(ngram, file)
+write_to_json(model, file)
 ```
-- ngram (dict) - your generated ngram.
+- model(dict) - your generated ngram.
+- file (str["N-gram.json"]) - Json file to write. (Default N-gram.json)
+#### Adding to the file
+```
+add_to_json(model, file)
+```
+- model(dict) - your generated ngram.
 - file (str["N-gram.json"]) - Json file to write. (Default N-gram.json)
 ### Reading from file
 ```
-ngram = read_from_json(file)
+read_from_json(file)
 ```
 - file (str["N-gram.json"]) - Json file to write. (Default N-gram.json)
-- ngram - variable to hold the ngram.
+### Using the ngram for prediction
+#### Single word/ list of words
+```
+predict_next_word(model, text, choose)
+```
+- model(dict) - your ngram.
+- text(str) - text to predict from.
+- choose(bool) - whether to return one word or a list of words. (Default True)
+#### More words
+```
+predict_more(model, text, word_count)
+```
+An extension to predict_next_word.
+- model(dict) - your ngram.
+- text(str) - text to predict from.
+- word_count(int) - the amount of words you want to predict.
