@@ -18,7 +18,7 @@ try:
     with open('config.json', 'r') as Cg:
         config = json.load(Cg)
 except:
-    config = os.environ['SECRET_KEY']
+    config = {'SECRET_KEY': os.environ['SECRET_KEY']}
 
 app.config.update(config)
 
