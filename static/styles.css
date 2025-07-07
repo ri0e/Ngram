@@ -201,6 +201,7 @@ input {
 
 .upload_content input[type = file] {
     font-size: 0.4em;
+    width: 80%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
