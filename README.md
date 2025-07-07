@@ -60,4 +60,4 @@ An extension to predict_next_word.
 - text(str) - text to predict from.
 - word_count(int) - the amount of words you want to predict.
 ## Usage example
-I made a website using this library which you can checkout here https://ngram.gb114.hackclub.app.
+I made a website using this library which you can checkout here https://ngram.vercel.app.
