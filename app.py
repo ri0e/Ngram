@@ -35,7 +35,7 @@ def submit_corpus():
         length = int(float(request.form.get('ngram_length', '2')))
         corpus = request.form.get('corpus', '')
         
-        punctuations = request.form.get('punctuation_remove')
+        punctuations = request.form.get('punctuation_remove', '''!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~''')
         
         _ngram = ngram.generate_ngram(corpus, length, punctuations = punctuations)
         session['ngram'] = _ngram

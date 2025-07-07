@@ -32,7 +32,7 @@ def until_last(current_dict: dict, leng: int, lst: list, generate: bool = False)
         
         return current_dict, preceding_words
     
-def generate_ngram(text: str, length: int = 3, file_write: bool = True, punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''):
+def generate_ngram(text: str, length: int = 3, file_write: bool = True, punctuations: str = '''!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~'''):
     text = cleanup(text, punctuations = punctuations)
     words = text.split(split_by)
 
@@ -79,7 +79,7 @@ def generate_ngram(text: str, length: int = 3, file_write: bool = True, punctuat
     return ngram
 
 def predict_next_word(model: dict, text:str, choose: bool = True):
-    words = cleanup(text = text, punctuations = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~''').split(split_by)
+    words = cleanup(text = text, punctuations = '''!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~''').split(split_by)
     
     try:
         length: int = model['___length___']
@@ -106,7 +106,7 @@ def predict_more(model: dict, text: str, word_count: int):
         try:
             sentence += f' {predict_next_word(model, sentence)}'
         except:
-            sentence += f' <UNAVAILABLE>'
+            sentence += f' <UNKNOWN>'
             
     return sentence
 
