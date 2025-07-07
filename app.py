@@ -1,6 +1,7 @@
 import ngram
 import io
 import json
+import os
 from flask import Flask, render_template, request, send_file, session, jsonify
 from datetime import datetime
 
@@ -13,8 +14,12 @@ def allowed_file_extension(filename):
 
 app = Flask(__name__,)
 
-with open('config.json', 'r') as Cg:
-    config = json.load(Cg)
+try:
+    with open('config.json', 'r') as Cg:
+        config = json.load(Cg)
+except:
+    config = os.environ['SECRET_KEY']
+
 app.config.update(config)
 
 allowed_ext = ['json']
