@@ -11,9 +11,11 @@ It basically uses nested dictionaries in this way: (for bigrams)
 } ...
 ```
 ## usage for the python library
+Download the `ngram.py` file and use the library by typing
 ```
 import ngram
 ```
+into your working space.
 ### Generating N-gram
 ```
 generate_ngram(text, ngramLength, file_write, punctuations)
