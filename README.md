@@ -11,9 +11,11 @@ It basically uses nested dictionaries in this way: (for bigrams)
 } ...
 ```
 ## usage for the python library
+Download the `ngram.py` file and use the library by typing
 ```
 import ngram
 ```
+into your working space.
 ### Generating N-gram
 ```
 generate_ngram(text, ngramLength, file_write, punctuations)
@@ -60,4 +62,4 @@ An extension to predict_next_word.
 - text(str) - text to predict from.
 - word_count(int) - the amount of words you want to predict.
 ## Usage example
-I made a website using this library which you can checkout here https://ngram.gb114.hackclub.app.
+I made a website using this library which you can checkout here https://ngram.vercel.app.
