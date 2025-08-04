@@ -117,4 +117,4 @@ def predict_text():
         return jsonify(status = status, message = message)
 
 if __name__ == '__main__':
-    app.run(port = 36363)
+    app.run(debug=True)
