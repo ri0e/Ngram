@@ -13,16 +13,20 @@
     </head>
     <body>
         <nav>
-            <ul>
-                <h2>N-gram Models</h2>
-                <li><a href = "#content-1" target = "_self">What are N-grams?</a></li>
-                <li><a href = "#content-2" target = "_self">What are N-gram Language Models?</a></li>
-                <li><a href = "#content-3" target = "_self">How my model works</a></li>
-                <li><a href = "#content-4" target = "_self">How to use</a></li>
-                <li><a href = "#generation" target = "_self">Try it</a></li>
+            <ul class = "hide-scrollbar">
+                <h2><a href = "#">N-gram Models</a></h2>
+                <li><a class = "styled-a" href = "#content-1" target = "_self">What are N-grams?</a></li>
+                <li><a class = "styled-a" href = "#content-2" target = "_self">What are N-gram Language Models?</a></li>
+                <li><a class = "styled-a" href = "#content-3" target = "_self">How my model works</a></li>
+                <li><a class = "styled-a" href = "#content-4" target = "_self">How to use</a></li>
+                <li><a class = "styled-a" href = "#generation" target = "_self">Try it</a></li>
             </ul>
         </nav>
-
+        
+        <button id="theme-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M479.93-282q-82.06 0-140-57.93-57.93-57.94-57.93-140 0-82.07 57.93-140.57 57.94-58.5 140-58.5 82.07 0 140.57 58.5T679-479.93q0 82.06-58.5 140Q562-282 479.93-282ZM216-435H25v-91h191v91Zm720 0H745v-91h191v91ZM435-745v-191h91v191h-91Zm0 720v-191h91v191h-91ZM261-636 140-754l65-67 119 120-63 65Zm496 496L635-261l64-64 121 117-63 68ZM636-700l118-120 67 63-119 122-66-65ZM140-204l120-122 65 65-117 121-68-64Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M594.77-669.62 510.38-754l84.39-85.27L680.04-754l-85.27 84.38Zm200 120L750.38-594l44.39-45.27L840.04-594l-45.27 44.38ZM483-120.73q-75.42 0-141.37-28.48-65.94-28.48-115.44-77.98t-77.98-115.44Q119.73-408.58 119.73-484q0-116.54 66.81-209.98 66.81-93.44 177.11-131.06-4.42 93.39 28.48 179.56 32.91 86.17 99.68 152.94 65.88 66.77 152.31 99.54 86.42 32.77 179.92 28.73-37.39 109.92-130.89 176.73-93.5 66.81-210.15 66.81Z"/></svg>
+        </button>
         <h1 id = "start">N-gram Models</h1>
         <div id = "content-1">
             <div class = "break">&nbsp;</div>
@@ -108,7 +112,7 @@
             </ol>
         </div>
         <br>
-        <div id = "cont">
+        <div class="hide-scrollbar" id = "cont">
             <div class = "generation" id = "generation">
                 <form method="POST" action="/submit_corpus">
                     <h3>Train</h3>

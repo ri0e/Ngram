@@ -85,4 +85,21 @@ document.addEventListener('DOMContentLoaded', function() {
             displayMessage('error', error);
         }
     });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const theme = localStorage.getItem('theme');
+    const body = document.body;
+    if (theme) {
+        body.classList.add(theme);
+    } else if (!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        body.classList.add('light-mode');
+    }
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+            localStorage.setItem('theme', 'light-mode');
+        } else {
+            localStorage.setItem('theme', 'dark-mode');
+        }
+    });
 });

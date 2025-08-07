@@ -1,19 +1,37 @@
 :root {
     --background: #020817;
+    --backgroundOp: #FDF7F0;
     --navigation: #081528;
     --list: #4e6287;
     --accent: #b0e3f5;
     --panels: #091027;
     --font-color: #ffffff;
+    --font-colorOp: #3E2723;
     --gradient1: #4e6287;
     --gradient2: #081528;
 }
 
+body.light-mode {
+    --background: #FDF7F0;
+    --backgroundOp: #020817;
+    --navigation: #EADCD1;
+    --list: #CBBAB3;
+    --accent: #D2691E;
+    --panels: #FFFFFF;
+    --font-color: #3E2723;
+    --font-colorOp: #ffffff;
+    --gradient1: #c2d1e07b;
+    --gradient2: #9ab0c47b;
+}
+
 body{
-    background: var(--background);
+    background-color: var(--background);
     color: var(--font-color);
     font-family: "Space Mono", monospace;
     font-weight: 400;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -25,6 +43,7 @@ nav {
     top: 0;
     background-color: var(--navigation);
     width: 100%;
+    margin: 0;
 }
 
 nav ul {
@@ -36,12 +55,26 @@ nav ul {
     padding: 0;
 }
 
+.hide-scrollbar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 nav h2 {
     padding: 10px;
     margin: 0 1em;
 }
 
-nav a {
+nav ul a{
+    text-decoration: none;
+}
+
+.styled-a {
     display: block;
     text-align: center;
     padding: 14px 16px;
@@ -63,7 +96,7 @@ h3{
     text-align: center;
 }
 
-button{
+.generation button{
     background-color: var(--accent);
     border: dashed var(--gradient1);
     border-radius: 0.4em;
@@ -96,6 +129,37 @@ input {
     padding: 2px 10px;
     border: solid 1px var(--accent);
     font-size: 1em;
+}
+
+#theme-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--backgroundOp);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#theme-toggle svg {
+    fill: var(--font-colorOp);
+    display: block;
+}
+
+#theme-toggle svg:last-child {
+    display: none;
+}
+
+.light-mode #theme-toggle svg {
+    display: none;
+}
+
+.light-mode #theme-toggle svg:last-child {
+    display: block;
 }
 
 #predict {
@@ -144,6 +208,7 @@ input {
 
 .message-area {
     background-color: #4e6287;
+    color: #ffffff;
     position: fixed;
     top: 0.5em;
     right: 0.5em;
