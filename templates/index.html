@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
+<html lang="en">
+  <head>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
         <link rel = "stylesheet" href = "{{ url_for("static", filename = "styles.css") }}">
@@ -9,196 +9,191 @@
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <base rel = "noopener">
-        <title>Ngram Models</title>
-    </head>
-    <body>
-        <nav>
-            <ul class = "hide-scrollbar">
-                <h2><a href = "#">N-gram Models</a></h2>
-                <li><a class = "styled-a" href = "#content-1" target = "_self">What are N-grams?</a></li>
-                <li><a class = "styled-a" href = "#content-2" target = "_self">What are N-gram Language Models?</a></li>
-                <li><a class = "styled-a" href = "#content-3" target = "_self">How my model works</a></li>
-                <li><a class = "styled-a" href = "#content-4" target = "_self">How to use</a></li>
-                <li><a class = "styled-a" href = "#generation" target = "_self">Try it</a></li>
-            </ul>
-        </nav>
+    <title>N-gram Models</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div id="canvas-container">
+        <canvas id="c"></canvas>
+    </div>
+    
+    <div id="content-wrapper">
+        <header>
+            <h1 id="start">N-gram Models</h1>
+            <nav>
+                <ul class="hide-scrollbar">
+                    <li><a class="styled-a" href="#content-1" target="_self">About N-grams</a></li>
+                    <li><a class="styled-a" href="#content-3" target="_self">How It Works</a></li>
+                    <li><a class="styled-a" href="#content-4" target="_self">How To Use</a></li>
+                    <li><a class="styled-a" href="#generation" target="_self">Demo</a></li>
+                </ul>
+            </nav>
+        </header>
         
         <button id="theme-toggle">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M479.93-282q-82.06 0-140-57.93-57.93-57.94-57.93-140 0-82.07 57.93-140.57 57.94-58.5 140-58.5 82.07 0 140.57 58.5T679-479.93q0 82.06-58.5 140Q562-282 479.93-282ZM216-435H25v-91h191v91Zm720 0H745v-91h191v91ZM435-745v-191h91v191h-91Zm0 720v-191h91v191h-91ZM261-636 140-754l65-67 119 120-63 65Zm496 496L635-261l64-64 121 117-63 68ZM636-700l118-120 67 63-119 122-66-65ZM140-204l120-122 65 65-117 121-68-64Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M594.77-669.62 510.38-754l84.39-85.27L680.04-754l-85.27 84.38Zm200 120L750.38-594l44.39-45.27L840.04-594l-45.27 44.38ZM483-120.73q-75.42 0-141.37-28.48-65.94-28.48-115.44-77.98t-77.98-115.44Q119.73-408.58 119.73-484q0-116.54 66.81-209.98 66.81-93.44 177.11-131.06-4.42 93.39 28.48 179.56 32.91 86.17 99.68 152.94 65.88 66.77 152.31 99.54 86.42 32.77 179.92 28.73-37.39 109.92-130.89 176.73-93.5 66.81-210.15 66.81Z"/></svg>
         </button>
-        <h1 id = "start">N-gram Models</h1>
-        <div id = "content-1">
-            <div class = "break">&nbsp;</div>
-            <h2>What are N-grams?</h2>
-            <p>An n-gram is a sequence of <strong>n</strong> adjacent phonemes, syllables, letters or words in a particular order. N-grams can be classified into many divisions based on their n value.
-                For example, if n is 1, we call it a unigram; n = 2, a bigram and so on with the prefixes being describing of their sequences.<br>
-                <br>
-                Let's take the sentence "The quick brown fox jumps over the lazy dog." and generate n-grams from it:<br>
+        
+        <div id="content-1">
+            <h2>About N-grams</h2>
+            <p>An n-gram is a sequence of n adjacent items, such as phonemes, syllables, letters, or words, arranged in a specific order. We classify n-grams based on the value of n. If n is 1, it's called a unigram. If n is 2, it's called a bigram. This pattern continues with different prefixes that indicate the number of items in the sequence.
             </p>
-            <ul>
-                <li><strong>Unigrams</strong>:  "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"<br>
-                <li><strong>Bigrams</strong>:  "The quick", "quick brown", "brown fox", "fox jumps", "jumps over", "over the", "the lazy", "lazy dog"<br>
-                <li><strong>Trigrams</strong>:  "The quick brown", "quick brown fox", "brown fox jumps", "fox jumps over", "jumps over the", "over the lazy", "the lazy dog"<br>
-            </ul>
-            <p> As you can see, the Bigrams contain more context than the Unigrams and Trigrams contain more context than both. Now we will move on to the N-gram models.<br>
-                If you want to learn more about n-grams you can go to <a target = "_blank" href = "https://en.wikipedia.org/wiki/N-gram">here</a> and <a href = "https://web.stanford.edu/~jurafsky/slp3/3.pdf">here</a>.
-            </p>
-        </div>
-
-        <div id = "content-2">
-            <div class = "break">&nbsp;</div>
-            <h2>What are N-gram Language Models?</h2>
-            <p>An N-gram language model predicts the probability of a given N-gram within any sequence of words in a language (or the ones in its training data). The model predicts the next word by taking the last
-               sequences of words in the input and comparing it with the available data to find which word is the most likely to occur next. Some may find this useful as it provides an accurate relationsip between
-               words. On the other hand, if we desire uniqueness, we might need to randomize the selection of the words.<br><br>
-
-               You can find more information about this <a target = "_blank" href = "https://web.stanford.edu/~jurafsky/slp3/3.pdf">here</a>.
-            </p>
-        </div>
-
-        <div id = "content-3">
-            <div class = "break">&nbsp;</div>
-            <h2>How my model works</h2>
-            <p> My N-gram model is fairly simple. It doesn't use any of those smoothing techniques nor does it require different functions to create and use different n-grams.<br>
-                It basically works by using nested dictionaries where the previous word is the key for the current one. It generates dictionaries for a bigram like this:<br>
-                <ul style = "list-style-type: none;">
-                    <li>{ "Word1": {
-                        <ul style = "list-style-type: none;">
-                            <li> "Word2" : 0.5,
-                            <li> "Word9" : 0.5 },
-                        </ul>
-
-                    <li> "Word2": {
-                        <ul style = "list-style-type: none;">
-                            <li> "Word3" : 0.3333333333333,
-                            <li> "Word18" : 0.3333333333333,
-                            <li> "Word29" : 0.3333333333333 }}
-                        </ul>
+            <p>Take the sentence: "The quick brown fox jumps over the lazy dog."
+                <ul>
+                    <li>Unigrams (1 word): The, quick, brown…</li>
+                    <li>Bigrams (2 words): The quick, quick brown…</li>
+                    <li>Trigrams (3 words): The quick brown, quick brown fox…</li>
                 </ul>
-                The numbers at the last of the dictionary tell the probability of that combination of words happening.<br>
-                The N-gram model then uses this to predict more words. You can go to the <a target = "_blank" href = "https://github.com/GlassyBridge/Ngram">github repository</a> to see how its done. 
+                <p>Bigrams give more context than unigrams, and trigrams give even more.</p>
+            </p>
+            <p>If you want to learn more about n-grams you can go to <a target="_blank" href="https://en.wikipedia.org/wiki/N-gram">here</a> and <a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">here</a>.</p>
+        </div>
+
+        <div id="content-2">
+            <h2>What are N-gram Language Models?</h2>
+            <p>N-gram language models use word sequences (N-grams) to predict the next word in a sentence. They work by looking at the last few words and choosing the most likely word based on patterns from training data.<br><br>This makes them useful for capturing word relationships. However, if we want more variety instead of predictable results, we may need to add randomness to the word choice.<br><br>
+
+               You can find more information about this <a target="_blank" href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">here</a>.
+            </p>
+        </div>
+
+        <div id="content-3">
+            <h2>How my model works</h2>
+            <p> My N-gram model is simple and doesn’t use smoothing techniques or separate functions for each N-gram. Instead, it relies on nested dictionaries: the previous word is stored as a key, and its possible next words are stored as sub-keys with their probabilities. Example (bigram):<br>
+                <ul style="list-style-type: none;">
+                    <li>{<ul>
+                        <li> "Word1": { "Word2": 0.5, "Word9": 0.5 },</li>
+                        <li> "Word2": { "Word3": 0.33, "Word18": 0.33, "Word29": 0.33 }</li>
+                        </ul>
+                        }
+
+                    </li>
+                </ul>
+                <p>Here, the numbers show the probability of one word following another. The model then uses these probabilities to predict the next words in a sequence. You can go to the <a target="_blank" href="https://github.com/GlassyBridge/Ngram">github repository</a> to see how its done. </p>
             </p>
         </div>
         
-        <div id = "content-4">
-            <div class = "break">&nbsp;</div>
+        <div id="content-4">
             <h2>How to use</h2>
             <h4>Training</h4>
             <ol>
-                <li>Enter large text you want to train the N-gram with in the corpus field.
-                <li>Choose the type of N-gram (1 = unigram; 2 = bigram ...).
-                <li>Choose what symbols to remove from the "Additional settings" dropdown.
-                <li>Click the download button (It will download the json file to your computer).
+                <li>Enter a large text into the corpus field.</li>
+                <li>Select the N-gram type (1 = unigram, 2 = bigram, etc.).</li>
+                <li>Pick symbols to remove under <i>Additional settings</i>.</li>
+                <li>Click Download to save the trained model as a JSON file.</li>
             </ol>
 
             <h4>Upoloading</h4>
-            This is where you upload the N-gram that will be used to predict text.<br>
-            If you have a json file already, you don't need to train it again.
             <ol>
-                <li>Click the field that asks you to upload (drag and drop not implemented yet).
-                <li>Browse to your Json file. It should look like "Ngram_{Time-stamp}.json".
-                <li>Click the upload button.
+                <li>If you already have a JSON file, no need to train again.</li>
+                <li>Click the upload field (drag & drop not supported yet).</li>
+                <li>Select your file (format: Ngram_{Time-stamp}.json).</li>
+                <li>Click Upload.</li>
             </ol>
 
             <h4>Generating</h4>
             <ol>
-                <li>Enter text that appears in your corpus.
-                <li>Check "choose?" if you want to select only one word. <br>
-                    Uncheck "choose?" if you want to see what the available words are.
-                <li>Check "predict many?" if you want to generate words repeatedly. ("choose?" will be disabled and new field would appear.)
-                <li>Choose the word count. (This is the amount of words that the n-gram will generate.)
-                <li>Click "Generate" and you will find your output under "Output:".
+                <li>Enter a word or phrase from your corpus.</li>
+                <li>Options:
+                    <ul>
+                        <li>Choose? → Pick one word only.</li>
+                        <li>Uncheck Choose? → See all possible next words.</li>
+                        <li>Predict many? → Generate multiple words (disables Choose? and adds a word-count field).</li>
+                    </ul>
+                </li>
+                <li>Set the word count (how many words to generate).</li>
+                <li>Click Generate → The result will appear under Output.</li>
             </ol>
         </div>
+        
         <br>
-        <div class="hide-scrollbar" id = "cont">
-            <div class = "generation" id = "generation">
+        
+        <div class="hide-scrollbar" id="cont">
+            <div class="generation" id="generation">
                 <form method="POST" action="/submit_corpus">
                     <h3>Train</h3>
 
-                    <label for = "corpus_input">
+                    <label for="corpus_input">
                         Corpus:<br>
-                        <textarea id = "corpus_input" name = "corpus" placeholder = "Type or paste a very long text (used to train the N-gram)"></textarea><br>
+                        <textarea id="corpus_input" name="corpus" placeholder="Type or paste a very long text (used to train the N-gram)"></textarea><br>
                     </label>
 
-                    <label for = "length_input">
+                    <label for="length_input">
                         N-gram type/length:<br>
-                        <input type = "number" id = "length_input" name = "ngram_length" value = "2" placeholder = "Length for your ngram is ..." step = "1" min = "1">
+                        <input type="number" id="length_input" name="ngram_length" value="2" placeholder="Length for your ngram is ..." step="1" min="1">
                     </label>
                     
                     <details>
                         <summary> Additional settings </summary>
-                        <label for = "punctuation_input">Remove:</label>
-                        <input type = "text" id = "punctuation_input" name = "punctuation_remove" value = "!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder = "Characters to be removed are ..."><br>
+                        <label for="punctuation_input">Remove:</label>
+                        <input type="text" id="punctuation_input" name="punctuation_remove" value="!&quot;#$%&amp;'()*+,-./:;<=>?@[\]^_`{|}~" placeholder="Characters to be removed are ..."><br>
                     </details>
                     
-                    <label for = "download">
+                    <label for="download">
                         <button><i class="fa fa-download"></i> Download</button>
-                        <input id = "download" type= "submit" hidden/>
+                        <input id="download" type="submit" hidden/>
                     </label>
-
                 </form>
                 
-                <div class = "divider"></div>
+                <div class="divider"></div>
                 
-                <form class = "intercept" method = "POST" action = "/upload_json" enctype = "multipart/form-data">
+                <form class="intercept" method="POST" action="/upload_json" enctype="multipart/form-data">
                     <h3>Upload</h3>
 
-                    <label for = "json_upload">Upload your N-gram:
-                        <div class = "upload_content">
-                            <svg xmlns = "http://www.w3.org/2000/svg" width = "50" height = "50" viewBox = "0 0 20 20" fill = "currentColor" aria-hidden = "true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
+                    <label for="json_upload">Upload your N-gram:
+                        <div class="upload_content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path></svg>
                             <p>Browse a file</p>
-                            <input type = "file" id = "json_upload" name = "json_file" accept = ".json"><br>
+                            <input type="file" id="json_upload" name="json_file" accept=".json"><br>
                         </div>
                     </label>
                     
-                    <label for = "upload">
+                    <label for="upload">
                         <button> <i class="fa fa-upload"></i> Upload</button>
-                        <input id = "upload" type="submit" hidden/>
+                        <input id="upload" type="submit" hidden/>
                     </label>
-
                 </form>
                 
-                <div class = "divider"></div>
+                <div class="divider"></div>
                 
-                <form class = "intercept" method = "POST" action = "/predict_text">
+                <form class="intercept" method="POST" action="/predict_text">
                     <h3>Generate</h3>
 
-                    <label for = "predict">
+                    <label for="predict">
                         Input:<br>
-                        <textarea id = "predict" name = "user_input" placeholder = "Enter words in your corpus..."></textarea><br>
+                        <textarea id="predict" name="user_input" placeholder="Enter words in your corpus..."></textarea><br>
                     </label>
                         
-                    <label for = "check_choose">
+                    <label for="check_choose">
                         Choose?
-                        <input type = "checkbox" id = "check_choose" name = "choose" checked>
+                        <input type="checkbox" id="check_choose" name="choose" checked>
                     </label><br>
 
-                    <label for = "predict_many">
+                    <label for="predict_many">
                         predict many?
-                        <input type = "checkbox" id = "predict_many" name = "predict_many" value = "no">
+                        <input type="checkbox" id="predict_many" name="predict_many" value="no">
                     </label><br>
 
-                    <label for = "word_count" id = "word_count_label" hidden/>
+                    <label for="word_count" id="word_count_label" hidden>
                         Word count:<br>
-                        <input type = "number" id = "word_count" name = "word_count" value = "3" placeholder = "How many to predict" step = "1" min = "1"><br>
+                        <input type="number" id="word_count" name="word_count" value="3" placeholder="How many to predict" step="1" min="1"><br>
                     </label>
                 
-                    <label for = "generate">
+                    <label for="generate">
                         <button>Generate</button>
                     </label>
 
-                    <input id = "generate" type="submit" hidden/>
+                    <input id="generate" type="submit" hidden/>
                 </form>
-
             </div>
         </div>
 
         <h3>Output:</h3>
-        <div id = "output"></div>
-        <div class = "message-area" hidden/></div>
-        
-    <script src = "{{ url_for("static", filename="script.js") }}"></script>
-    </body>
+        <div id="output"></div>
+        <div class="message-area" hidden></div>
+    </div>
+     
+  </body>
 </html>
