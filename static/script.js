@@ -1,7 +1,8 @@
 window.onload = function () {
   const themeToggle = document.getElementById("theme-toggle");
-  const theme = localStorage.getItem("theme");
   const body = document.body;
+
+  let theme = localStorage.getItem("theme");
   if (theme) {
     body.classList.add(theme);
   } else if (
@@ -11,18 +12,18 @@ window.onload = function () {
     )
   ) {
     body.classList.add("light-mode");
+    theme = "light-mode";
   }
+
   themeToggle.addEventListener("click", () => {
     body.classList.toggle("light-mode");
-    if (body.classList.contains("light-mode")) {
-      localStorage.setItem("theme", "light-mode");
-    } else {
-      localStorage.setItem("theme", "dark-mode");
-    }
+    theme = body.classList.contains("light-mode") ? "light-mode" : "dark-mode";
+    localStorage.setItem("theme", theme);
+    c.fillStyle = theme === "light-mode" ? "black" : "white";
   });
 
   var lyric =
-    "Bright morning sunlight painted rooftops golden while distant traffic echoed across empty streets. Curious birds circled above gardens searching hidden seeds. Young children chased colorful kites drifting higher through gentle breezes. Strong determination pushed athletes beyond limits during long practice sessions. Quiet libraries preserved knowledge, inspiring thoughtful minds exploring infinite possibilities. Evening shadows stretched slowly across silent courtyards while lanterns flickered gently, revealing hidden corners filled with whispers. Rustling leaves carried memories from forgotten journeys, stirring emotions buried within restless hearts. Towering structures reflected glowing skies, reminding wanderers about endless horizons waiting beyond crowded avenues. Distant mountains stood proudly, crowned with snow, guarding valleys nourished by rushing rivers. Farmers guided animals through fertile fields, preparing soil for harvest seasons. Travelers followed winding trails, discovering villages where traditions survived centuries despite storms, droughts, struggles. Voices from marketplaces rose above drumbeats, creating rhythms uniting strangers through celebration. Creative minds filled notebooks with sketches, melodies, formulas, shaping visions destined to influence generations. Silent determination fueled progress, while curiosity sparked discoveries across laboratories, libraries, workshops. Dreams collided with obstacles, yet resilience lifted spirits, proving strength emerges whenever hope remains steady.";
+    "i couldn't take it couldn't stand another minute couldn't bear another day without you in it all of the joy that I had known for my life was stripped away from me the minute that you died to have you in my life was all i ever wanted but now without you I'm a soul forever haunted can't help but feel that i had taken you for granted no way in hell that i can ever comprehend this i wasn't dreaming when they told me you were gone i was wide awake and feeling that they had to be wrong how could you leave me when you swore that you would stay now i'm trapped inside a nightmare every single fucking day it's like a movie but there's not a happy ending every scene fades black and there's no pretending this little fairy tale doesn't seem to end well theres no knight in shining armor who will wake me from the spell i know you didn't plan this you tried to do what's right but in the middle of this madness i'm the one you left to win this fight red like roses fills my head with dreams and finds me always closer to the emptiness and sadness that has come to take the place of you i know you're broken down by anger and by sadness you feel I left you in a world that's full of madness wish i could talk to you if only for a minute make you understand the reasons why i did it i wanna tell you that you're all that ever mattered want you to know that for eternity i'm shattered i tried so hard just to protect you but i failed to and in a prison of abandonment i've jailed you i never planned that i would leave you there alone i was sure that i would see you when i made it back home and all the times I swore that it would be okay now i'm nothing but a liar and you're thrown into the fray this bedtime story ends with misery ever after the pages are torn and there's no final chapter i didn't have a choice I did what I had to do i made a sacrifice but forced a bigger sacrifice on you i know you've lived a nightmare i caused you so much pain but baby please don't do what i did i don't want you to waste your life in vain red like roses fills my head with dreams and finds me always closer to the emptiness and sadness that has come to take the place of you you're not the only one who needed me i thought you understood you were the one i needed and you left me as I always feared you would would I change it if i could? it doesn't matter how the petals scatter now every nightmare just discloses it's your blood that's red like roses and no matter what I do nothing ever takes the place of you red like roses fills my head with dreams and finds me always closer to the emptiness and sadness that has come to take the place of you";
   var words = {};
   var words_attr = [];
   string_handle(lyric);
@@ -37,7 +38,7 @@ window.onload = function () {
       h = canvas.height;
 
     c.strokeStyle = "blue";
-    c.fillStyle = "white";
+    c.fillStyle = theme === "light-mode" ? "black" : "white";
     c.lineWidth = 5;
 
     // constructor
@@ -51,7 +52,6 @@ window.onload = function () {
     for (key in words) {
       words_attr.push(new Word(key));
     }
-    console.log(words_attr.length);
 
     function animation() {
       for (var i = 0; i < words_attr.length; i++) {
@@ -105,91 +105,89 @@ window.onload = function () {
   }
 };
 
-function output(text){
-    const messageArea = document.getElementById('output');
-    messageArea.textContent = text;
+function output(text) {
+  const messageArea = document.getElementById("output");
+  messageArea.textContent = text;
 }
 
-function displayMessage(status, message){
-    const messageArea = document.getElementsByClassName('message-area')[0];
+function displayMessage(status, message) {
+  const messageArea = document.getElementsByClassName("message-area")[0];
 
-    messageArea.className = 'message-area';
-    messageArea.textContent = '';
-    messageArea.style.display = 'none';
+  messageArea.className = "message-area";
+  messageArea.textContent = "";
+  messageArea.style.display = "none";
 
-    messageArea.classList.add(status);
-    const symbol = status === 'success' ? '✔' : (status === 'error' ? 'X' : '');
-    messageArea.innerHTML = `<p style = "font-size: 1em">${symbol} <span style = "font-size: 0.5em">${message}</span></p>`;
+  messageArea.classList.add(status);
+  const symbol = status === "success" ? "✔" : status === "error" ? "X" : "";
+  messageArea.innerHTML = `<p style = "font-size: 1em">${symbol} <span style = "font-size: 0.5em">${message}</span></p>`;
 
-    messageArea.style.display = 'block';
-    messageArea.style.opacity = '1';
+  messageArea.style.display = "block";
+  messageArea.style.opacity = "1";
 
-    messageArea.addEventListener('click', function(){
-        messageArea.style.opacity = '0';
-        messageArea.style.display = 'none';
+  messageArea.addEventListener("click", function () {
+    messageArea.style.opacity = "0";
+    messageArea.style.display = "none";
+    return;
+  });
+
+  setTimeout(() => {
+    messageArea.style.opacity = "0";
+    messageArea.style.display = "none";
+  }, 7000);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const generation = document.getElementById("generation");
+  const choose = document.getElementById("check_choose");
+  const predict_many = document.getElementById("predict_many");
+  const word_count = document.getElementById("word_count_label");
+
+  predict_many.addEventListener("click", function () {
+    if (predict_many.checked) {
+      choose.disabled = true;
+      word_count.hidden = false;
+    } else {
+      choose.disabled = false;
+      word_count.hidden = true;
+    }
+  });
+
+  generation.addEventListener("submit", async function (event) {
+    console.log("DEBUG: Submit event caught by formsContainer!");
+    const form = event.target.closest(".intercept");
+
+    if (!form) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const formAction = form.action;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(formAction, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        displayMessage("error", errorText);
+      }
+
+      const data = await response.json();
+
+      if (!data.next_word) {
+        displayMessage(data.status, data.message);
         return;
-    });
+      }
 
-    setTimeout(() => {
-        messageArea.style.opacity = '0';
-        messageArea.style.display = 'none';
-    }, 7000);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const generation = document.getElementById('generation');
-    const choose = document.getElementById('check_choose');
-    const predict_many = document.getElementById('predict_many');
-    const word_count = document.getElementById('word_count_label');
-
-    predict_many.addEventListener('click', function(){
-        if (predict_many.checked){
-            choose.disabled = true;
-            word_count.hidden = false;
-        } else {
-            choose.disabled = false;
-            word_count.hidden = true;
-        }
-    });
-
-    generation.addEventListener('submit', async function(event){
-        console.log('DEBUG: Submit event caught by formsContainer!');
-        const form = event.target.closest('.intercept');
-
-        if (!form) {
-            return;
-        }
-
-        event.preventDefault();
-        
-        const formAction = form.action;
-        const formData = new FormData(form);
-
-        try{
-            const response = await fetch(formAction, {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                displayMessage('error', errorText);
-            }
-
-            const data = await response.json();
-
-            if(!data.next_word){
-                 displayMessage(data.status, data.message);
-                 return;
-            }
-
-            output(data.next_word);
-            displayMessage('success', 'Text generated successfully.');
-        }
-
-        catch(error){
-            console.error('Fetch error:', error);
-            displayMessage('error', error);
-        }
-    });
+      output(data.next_word);
+      displayMessage("success", "Text generated successfully.");
+    } catch (error) {
+      console.error("Fetch error:", error);
+      displayMessage("error", error);
+    }
+  });
 });

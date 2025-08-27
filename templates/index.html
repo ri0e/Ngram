@@ -3,15 +3,16 @@
   <head>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-        <link rel = "stylesheet" href = "{{ url_for("static", filename = "styles.css") }}">
+        <link rel = "stylesheet" href = "../static/styles.css">
+        <script defer src="../static/script.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <base rel = "noopener">
-    <title>N-gram Models</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+        <title>N-gram Models</title>
+        <link rel="stylesheet" href="style.css">
+        <script defer src="script.js"></script>
   </head>
   <body>
     <div id="canvas-container">
@@ -25,7 +26,7 @@
                 <ul class="hide-scrollbar">
                     <li><a class="styled-a" href="#content-1" target="_self">About N-grams</a></li>
                     <li><a class="styled-a" href="#content-3" target="_self">How It Works</a></li>
-                    <li><a class="styled-a" href="#content-4" target="_self">How To Use</a></li>
+                    <li><a class="styled-a" href="#content-4" target="_self">How to Use</a></li>
                     <li><a class="styled-a" href="#generation" target="_self">Demo</a></li>
                 </ul>
             </nav>
@@ -36,7 +37,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M594.77-669.62 510.38-754l84.39-85.27L680.04-754l-85.27 84.38Zm200 120L750.38-594l44.39-45.27L840.04-594l-45.27 44.38ZM483-120.73q-75.42 0-141.37-28.48-65.94-28.48-115.44-77.98t-77.98-115.44Q119.73-408.58 119.73-484q0-116.54 66.81-209.98 66.81-93.44 177.11-131.06-4.42 93.39 28.48 179.56 32.91 86.17 99.68 152.94 65.88 66.77 152.31 99.54 86.42 32.77 179.92 28.73-37.39 109.92-130.89 176.73-93.5 66.81-210.15 66.81Z"/></svg>
         </button>
         
-        <div id="content-1">
+        <div id="content-1" class="content-box">
             <h2>About N-grams</h2>
             <p>An n-gram is a sequence of n adjacent items, such as phonemes, syllables, letters, or words, arranged in a specific order. We classify n-grams based on the value of n. If n is 1, it's called a unigram. If n is 2, it's called a bigram. This pattern continues with different prefixes that indicate the number of items in the sequence.
             </p>
@@ -51,7 +52,7 @@
             <p>If you want to learn more about n-grams you can go to <a target="_blank" href="https://en.wikipedia.org/wiki/N-gram">here</a> and <a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">here</a>.</p>
         </div>
 
-        <div id="content-2">
+        <div id="content-2" class="content-box">
             <h2>What are N-gram Language Models?</h2>
             <p>N-gram language models use word sequences (N-grams) to predict the next word in a sentence. They work by looking at the last few words and choosing the most likely word based on patterns from training data.<br><br>This makes them useful for capturing word relationships. However, if we want more variety instead of predictable results, we may need to add randomness to the word choice.<br><br>
 
@@ -59,8 +60,8 @@
             </p>
         </div>
 
-        <div id="content-3">
-            <h2>How my model works</h2>
+        <div id="content-3" class="content-box">
+            <h2>How My Model Works</h2>
             <p> My N-gram model is simple and doesn’t use smoothing techniques or separate functions for each N-gram. Instead, it relies on nested dictionaries: the previous word is stored as a key, and its possible next words are stored as sub-keys with their probabilities. Example (bigram):<br>
                 <ul style="list-style-type: none;">
                     <li>{<ul>
@@ -75,8 +76,8 @@
             </p>
         </div>
         
-        <div id="content-4">
-            <h2>How to use</h2>
+        <div id="content-4" class="content-box">
+            <h2>How to Use</h2>
             <h4>Training</h4>
             <ol>
                 <li>Enter a large text into the corpus field.</li>
@@ -156,7 +157,7 @@
                     </label>
                 </form>
                 
-                <div class="divider"></div>
+                <div class="divider" id="divider-id"></div>
                 
                 <form class="intercept" method="POST" action="/predict_text">
                     <h3>Generate</h3>
@@ -192,7 +193,9 @@
 
         <h3>Output:</h3>
         <div id="output"></div>
-        <div class="message-area" hidden></div>
+        <div class="message-area" hidden> no gram data found</div>
+
+        <footer><p>Made with 🖤 by <a target="_blank" href="https://github.com/GlassyBridge/">GB114</a> and designed with 💖 by <a target="_blank" href="https://github.com/ri0e/">Rei</a></p></footer>
     </div>
      
   </body>
