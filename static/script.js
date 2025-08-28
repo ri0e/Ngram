@@ -112,27 +112,46 @@ function output(text) {
 
 function displayMessage(status, message) {
   const messageArea = document.getElementsByClassName("message-area")[0];
+  const errorIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-1.5-5.009c0-.867.659-1.491 1.491-1.491.85 0 1.509.624 1.509 1.491 0 .867-.659 1.509-1.509 1.509-.832 0-1.491-.642-1.491-1.509zM11.172 6a.5.5 0 0 0-.499.522l.306 7a.5.5 0 0 0 .5.478h1.043a.5.5 0 0 0 .5-.478l.305-7a.5.5 0 0 0-.5-.522h-1.655z" fill="#d6d6d6"/></svg>`;
 
+  const successIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="#d6d6d6" width="30px" height="30px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"><path d="M26,2C12.7,2,2,12.7,2,26s10.7,24,24,24s24-10.7,24-24S39.3,2,26,2z M39.4,20L24.1,35.5  c-0.6,0.6-1.6,0.6-2.2,0L13.5,27c-0.6-0.6-0.6-1.6,0-2.2l2.2-2.2c0.6-0.6,1.6-0.6,2.2,0l4.4,4.5c0.4,0.4,1.1,0.4,1.5,0L35,15.5  c0.6-0.6,1.6-0.6,2.2,0l2.2,2.2C40.1,18.3,40.1,19.3,39.4,20z"/>
+  </svg>`;
   messageArea.className = "message-area";
   messageArea.textContent = "";
   messageArea.style.display = "none";
 
   messageArea.classList.add(status);
-  const symbol = status === "success" ? "✔" : status === "error" ? "X" : "";
-  messageArea.innerHTML = `<p style = "font-size: 1em">${symbol} <span style = "font-size: 0.5em">${message}</span></p>`;
+  const symbol =
+    status === "success" ? successIcon : status === "error" ? errorIcon : "";
+
+  const span = document.createElement("span");
+  span.className = "span-text";
+  span.textContent = message;
+
+  const p = document.createElement("p");
+  p.className = "message-text";
+  p.innerHTML = symbol;
+  p.appendChild(span);
+
+  messageArea.appendChild(p);
 
   messageArea.style.display = "block";
   messageArea.style.opacity = "1";
 
-  messageArea.addEventListener("click", function () {
+  messageArea.onclick = function () {
     messageArea.style.opacity = "0";
-    messageArea.style.display = "none";
-    return;
-  });
+    setTimeout(() => {
+      messageArea.style.display = "none";
+    }, 300);
+  };
 
   setTimeout(() => {
-    messageArea.style.opacity = "0";
-    messageArea.style.display = "none";
+    if (messageArea.style.display === "block") {
+      messageArea.style.opacity = "0";
+      setTimeout(() => {
+        messageArea.style.display = "none";
+      }, 3000);
+    }
   }, 7000);
 }
 
