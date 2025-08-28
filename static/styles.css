@@ -23,6 +23,15 @@ html {
   --LMcolorOverlayStrong: rgba(194, 194, 194, 0.8);
   --LMcolorBorder: #ddd;
   --LMcolorMuted: #ccc;
+  --icon-fill-color: #d6d6d6;
+}
+
+.dark-mode {
+  --icon-fill-color: #d6d6d6;
+}
+
+.light-mode {
+  --icon-fill-color: #333;
 }
 
 ::-webkit-scrollbar {
