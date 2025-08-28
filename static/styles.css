@@ -349,6 +349,11 @@ button:hover {
   animation: slideIn 0.6s ease-out forwards;
 }
 
+.light-mode .message-text {
+  background: var(--LMcolorBG);
+  border: 1px solid #555;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
