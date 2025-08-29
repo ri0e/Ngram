@@ -337,6 +337,23 @@ button:hover {
   background: var(--LMcolorOverlayStrong);
 }
 
+#extra-text {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  margin-top: 5px;
+}
+
+#predict:focus + #extra-text {
+  max-height: 50px;
+  opacity: 1;
+}
+
+.light-mode #predict:focus + #extra-text {
+  color: var(--LMcolorTextPrimary);
+}
+
 .message-area {
   position: fixed;
   top: 1rem;
