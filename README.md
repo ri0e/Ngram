@@ -1,5 +1,5 @@
 # N-gram
-Simple N-gram model that utilizes dictionaries to achieve its purpose. This N-gram model provides a modular approach for gernerating and reading N-grams.
+A simple N-gram model that utilizes dictionaries to achieve its purpose. This N-gram model provides a modular approach for generating and reading N-grams.
 It basically uses nested dictionaries in this way: (for bigrams)
 ```
 'word1': {
@@ -10,12 +10,12 @@ It basically uses nested dictionaries in this way: (for bigrams)
 .   'word3': 1
 } ...
 ```
-## usage for the python library
-Download the `ngram.py` file and use the library by typing
+## usage for the Python library
+Download the `ngram.py` file and use the library by typing.
 ```
 import ngram
 ```
-into your working space.
+Into your working space.
 ### Generating N-gram
 ```
 generate_ngram(text, ngramLength, file_write, punctuations)
@@ -60,6 +60,6 @@ predict_more(model, text, word_count)
 An extension to predict_next_word.
 - model(dict) - your ngram.
 - text(str) - text to predict from.
-- word_count(int) - the amount of words you want to predict.
+- word_count(int) - the number of words you want to predict.
 ## Usage example
-I made a website using this library which you can checkout here https://ngram.vercel.app.
+I made a website using this library, which you can check out here https://ngram-lyart.vercel.app/.
